@@ -8,6 +8,18 @@
 </head>
 <body>
 
+  <h1>Tic Tac Foot</h1>
+  
+  <div id="navbar">
+    <ul>
+      <li><%= link_to 'Home', root_path %></li>
+      <li><%= link_to 'All users', users_path %></li>
+      <li><%= link_to 'New user', new_user_path %></li>
+    </ul>
+  </div>
+  
+  <hr>
+
 <%= yield %>
 
 </body>
