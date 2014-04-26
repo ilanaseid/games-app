@@ -16,6 +16,9 @@
 //= require_tree .
 
 $(function() {
-	var faye = new Faye.Client('<%= j(ENV["faye_server"]) %>');
-	faye.subscribe("/messages/new");
+  var faye = new Faye.Client('http://localhost:9292/faye');
+  alert('subscribing!');
+  faye.subscribe("/messages/new", function (data) {
+    eval(data);
+  });
 });

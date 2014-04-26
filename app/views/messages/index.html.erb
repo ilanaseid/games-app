@@ -1,11 +1,10 @@
 <h1>Chat</h1>
 
 <ul id="chat">
-	<%= render @messages %>
+  <%= render @messages %>
 </ul>
 
-<hr>
-
-<div id="new-message">
-	<%= render 'form' locals: {message: @message} %>
-</div>
+<%= form_for Message.new, :remote => true do |f| %>
+  <%= f.text_field :content %>
+  <%= f.submit "Send" %>
+<% end %>
