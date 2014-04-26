@@ -244,6 +244,7 @@ DEPENDENCIES
   jquery-rails
   pg
   pry-rails
+  rack
   rails (= 4.0.4)
   rails_12factor
   rb-fsevent
