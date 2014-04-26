@@ -1,2 +1,12 @@
 <h1>Challenges#index</h1>
 <p>Find me in app/views/challenges/index.html.erb</p>
+<%= title "string" %>
+
+<ul id="gameboard">
+	<%= render @challenge %>
+</ul>
+
+<%= form_for Challenge.new, remote: true do |f| %>
+	<%= f.text_field :content %>
+	<%= f.submit "Send" %>
+<% end %>
