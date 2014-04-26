@@ -14,3 +14,8 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require_tree .
+
+$(function() {
+	var faye = new Faye.Client('<%= j(ENV["faye_server"]) %>');
+	faye.subscribe("/messages/new");
+});

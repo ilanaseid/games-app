@@ -1,0 +1,11 @@
+<h1>Chat</h1>
+
+<ul id="chat">
+	<%= render @messages %>
+</ul>
+
+<hr>
+
+<div id="new-message">
+	<%= render 'form' locals: {message: @message} %>
+</div>
