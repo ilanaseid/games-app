@@ -1,4 +1,7 @@
 class GameTypesController < ApplicationController
+
+  before_action: require_admin, only [:new, :create, :edit, :update, :destroy]
+
   def index
   end
 

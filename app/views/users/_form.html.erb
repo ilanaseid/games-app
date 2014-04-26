@@ -10,6 +10,8 @@
     <%= f.email_field :email %>
   </p>
 
+<% unless current_user %>
+
   <p>
     <%= f.label :password %><br />
     <%= f.password_field :password %>
@@ -19,6 +21,8 @@
     <%= f.label :password_confirmation %><br />
     <%= f.password_field :password_confirmation %>
   </p>
+
+<% end %>
 
   <p>
     <%= f.submit %>

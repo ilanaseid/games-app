@@ -2,12 +2,13 @@ GamesApp::Application.routes.draw do
 
   root :to => "welcome#index"
 
-  get "sessions/new"
-  get "sessions/create"
-  get "sessions/destroy"
+  get '/login', to: 'sessions#new'
+  post '/sessions', to: 'sessions#create'
+  get '/logout', to: 'sessions#destroy'
+
 
   resources :users
 
   resources :challenges
-  
+
 end

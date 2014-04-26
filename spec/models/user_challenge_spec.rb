@@ -1,5 +1,13 @@
 require 'spec_helper'
 
 describe UserChallenge do
-  pending "add some examples to (or delete) #{__FILE__}"
+  subject(:user_challenge) {UserChallenge.new({
+    user_id: 2,
+    challenge_id: 2,
+    win: false
+    })}
+
+  it { should validate_presence_of(:user_id) }
+  it { should validate_presence_of(:challenge_id) }
+  it { should validate_presence_of(:win) }
 end

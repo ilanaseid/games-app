@@ -1,4 +1,5 @@
 class ChallengesController < ApplicationController
+
   def index
   end
 
