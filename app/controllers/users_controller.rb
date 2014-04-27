@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
 
-before_action :require_authentication
+before_action :require_authentication, only: [:index, :show, :edit, :update, :destroy]
 
   def index
     @users = User.all
@@ -20,6 +20,7 @@ before_action :require_authentication
     @user.admin = false
 
     if @user.save!
+      session[:user_id] = @user.id
       redirect_to @user
     else
       render 'new'
