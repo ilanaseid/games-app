@@ -3,7 +3,7 @@
 <title>GamesApp</title>
 <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
 <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
-<%= javascript_include_tag "http://localhost:9292/faye.js" %>
+<%= javascript_include_tag "#{ENV['faye_server']}.js" %>
 <%= csrf_meta_tags %>
 <body>
 
