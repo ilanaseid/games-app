@@ -17,7 +17,10 @@ class ApplicationController < ActionController::Base
   end
 
   def require_authentication
-    redirect_to login_path unless current_user
+    if !current_user
+      flash[:notice] = "You must be signed in to view that page."
+      redirect_to login_path
+    end
   end
 
   def require_admin

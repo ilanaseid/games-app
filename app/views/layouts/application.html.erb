@@ -1,11 +1,17 @@
 <!DOCTYPE html>
 <html>
-<title>GamesApp</title>
+<title>TicTacFoot</title>
 <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
 <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
 <%= javascript_include_tag "http://localhost:9292/faye.js" %>
 <%= csrf_meta_tags %>
 <body>
+
+  <% if !current_user %>
+    <%= link_to  'Login', login_path %>
+  <% else %>
+    Hello, <%= current_user.username %>!  <%= link_to 'Logout', logout_path %>
+  <% end %>
 
   <h1>Tic Tac Foot</h1>
   
@@ -13,11 +19,14 @@
     <ul>
       <li><%= link_to 'Home', root_path %></li>
       <li><%= link_to 'All users', users_path %></li>
-      <li><%= link_to 'New user', new_user_path %></li>
     </ul>
   </div>
   
   <hr>
+
+  <% flash.each do |name, msg| %>
+    <%= content_tag :div, msg, class:name %>
+  <% end %>
 
 <%= yield %>
 

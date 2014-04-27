@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
 
-before_action :require_authentication, only: [:edit, :update, :destroy]
+before_action :require_authentication
 
   def index
     @users = User.all
@@ -49,7 +49,11 @@ before_action :require_authentication, only: [:edit, :update, :destroy]
     @user = User.find(params[:id])
     if current_user == @user || admin?
       @user.destroy!
-      session[:user_id] = nil
+
+      if current_user == @user 
+        session[:user_id] = nil
+      end
+
       redirect_to users_path
     else
       redirect_to current_user
