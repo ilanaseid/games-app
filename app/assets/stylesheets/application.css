@@ -9,7 +9,6 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  *= require_self
- *= require_skeleton
  *= require_tree .
  */
 
@@ -29,35 +28,43 @@
   color: red;
  }
 
- .square {
- }
 
 body{
-	background: gray;
+	background: #F8F8FF;
 }
 
 div.big-board{
-	margin: 0 auto;
-	width: 33%
+	width: 500px;
+	height: 500px;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
 }
 
 div.big{
-	width: 120px;
-	height: 120px;
+	width: 150px;
+	height: 150px;
 	border: 2px solid whitesmoke;
 	border-radius: 0%;
 	background: white;
-	float: left;
 	margin: 1px;
-	
+	display: inline-block;
+	text-align: center;
 }
+
 div.small{
-	width: 35px;
-	height: 35px;
+	width: 44px;
+	height: 44px;
 	border: 1px solid whitesmoke;
-	border-radius: 0%;
-	background: blue;
+	background: gray;
+	display: inline-block;
 	float: left;
-	float: right;
 	margin: 1px;
+}
+
+div.small:hover{
+	background-color: indianred;
+	-webkit-box-shadow: 4px 3px 6px 6px #CCCCCC;
+	-moz-box-shadow: 4px 3px 6px 6px #CCCCCC;
+	box-shadow: 4px 3px 6px 6px #CCCCCC;
 }
