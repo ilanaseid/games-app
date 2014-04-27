@@ -1,2 +1,2 @@
-ENV['faye_server'] = "http://localhost:9292/faye"
+ENV['faye_server'] = "http://nameless-brook-7007.herokuapp.com/faye"
 FAYE_TOKEN = "super_toe_jam"
