@@ -1,0 +1,14 @@
+<%= form_for @challenge do |f| %>
+	<div>
+		<%= f.label :game_type %>
+		<%= collection_select(:challenge, :game_type_id, GameType.all, :id, :name) %>
+	</div>
+
+	<div>
+		
+	</div>
+
+
+
+	<%= f.submit :gameON %>
+<% end %>
