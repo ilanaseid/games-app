@@ -1,6 +1,10 @@
 class ChallengesController < ApplicationController
 
   def index
+    @challenge = Challenge.all
+  end
+
+  def index_for_user
   end
 
   def show
