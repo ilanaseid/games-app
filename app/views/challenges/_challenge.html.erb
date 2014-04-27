@@ -1,1 +1,13 @@
-<%= @challenge.players %>
+<div>
+  <div>
+    Game-Type: <%= challenge.game_type.username %>
+  </div>
+
+  <div>
+    Created at: <%= challenge.created_at %>
+  </div>
+
+  <div>
+    Last move by <%= challenge.last_player.username %> at <%= challenge.updated_at %>
+  </div>
+</div>

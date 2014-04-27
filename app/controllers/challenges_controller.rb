@@ -1,7 +1,9 @@
 class ChallengesController < ApplicationController
 
+  before_action :require_admin, only: [:index]
+
   def index
-    @challenge = Challenge.all
+    @challenges = Challenge.all
   end
 
   def index_for_user
