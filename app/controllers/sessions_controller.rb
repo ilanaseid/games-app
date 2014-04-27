@@ -8,6 +8,7 @@ class SessionsController < ApplicationController
       # save the user's ID in the session to be used later
       session[:current_user_id] = user.id
       redirect_to root_url
+    end
   end
 
   def destroy
