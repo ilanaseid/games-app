@@ -10,12 +10,19 @@ class ChallengesController < ApplicationController
   end
 
   def show
+    @challenge = Challenge.find(params[:id])
   end
 
   def new
+    @challenge = Challenge.new()
+
   end
 
   def create
+    @challenge = Challenge.create(game_type_id: params[:game_type_id], 
+      completed: false, 
+      state_of_play:"------------------------------------------------------------------------------------------")
+    render @challenge
   end
 
   def edit

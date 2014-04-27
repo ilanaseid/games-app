@@ -7,7 +7,9 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 User.create(username: "ilana", email: "ilana@gmail.com", password: "ilana1", password_confirmation: "ilana1", admin: true)
-User.create(username: "igor", email: "igor@gmail.com", password: "igor", password_confirmation: "igor1", admin: false)
-Challenge.create(state_of_play: "XOXOXOOXX", game_type_id: 1, last_player_id: 1, completed: false)
+User.create(username: "igor", email: "igor@gmail.com", password: "igor1", password_confirmation: "igor1", admin: false)
 GameType.create(name: "Tic tac foot", rules: "blah blah blah")
+Challenge.create(state_of_play: "XOXOXOOXX", game_type_id: 1, last_player_id: 1, completed: false)
 UserChallenge.create(user_id: 1, challenge_id: 1, win: false)
+UserChallenge.create(user_id: 2, challenge_id: 1, win: false)
+
