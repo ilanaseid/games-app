@@ -9,6 +9,7 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  *= require_self
+ *= require_skeleton
  *= require_tree .
  */
 
@@ -27,3 +28,36 @@
  .notice {
   color: red;
  }
+
+ .square {
+ }
+
+body{
+	background: gray;
+}
+
+div.big-board{
+	margin: 0 auto;
+	width: 33%
+}
+
+div.big{
+	width: 120px;
+	height: 120px;
+	border: 2px solid whitesmoke;
+	border-radius: 0%;
+	background: white;
+	float: left;
+	margin: 1px;
+	
+}
+div.small{
+	width: 35px;
+	height: 35px;
+	border: 1px solid whitesmoke;
+	border-radius: 0%;
+	background: blue;
+	float: left;
+	float: right;
+	margin: 1px;
+}
