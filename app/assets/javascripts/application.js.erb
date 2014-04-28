@@ -15,10 +15,5 @@
 //= require turbolinks
 //= require_tree .
 
-$(function() {
-  var faye = new Faye.Client("<%= ENV['faye_server'] %>");
 
-  faye.subscribe("/messages/new", function (data) {
-    eval(data);
-  });
-});
+
