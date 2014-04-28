@@ -1,13 +1,17 @@
 <div>
   <div>
-    Game-Type: <%= challenge.game_type.username %>
+    <strong>Challenge ID:</strong> <%= challenge.id %>
   </div>
 
   <div>
-    Created at: <%= challenge.created_at %>
+    <strong>Game-Type:</strong> <%= challenge.game_type.name %>
   </div>
 
   <div>
-    Last move by <%= challenge.last_player.username %> at <%= challenge.updated_at %>
+    <strong>Created at:</strong> <%= challenge.created_at %>
+  </div>
+
+  <div>
+    <strong>Last move</strong> by <%= challenge.last_player.username %> at <%= challenge.updated_at %>
   </div>
 </div>
