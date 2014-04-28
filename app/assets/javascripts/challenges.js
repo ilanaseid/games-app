@@ -2,22 +2,50 @@
 
 $(document).ready(function(){
 	console.log("Loaded, bro!")
+	var bigBoard = $('.big-board');
+	var bigSquares = $('.big.square');
+	var smallSquares = $('.small.square');
+	loadBoard();
 	startGame();
 })
 
 function loadBoard(){
+	// Add classes to squares based on text inside each div.
+	// All big-squares are assigned 'inactive' class in the challenges/show.html.erb view.
+	$(".small.square:contains('X')").addClass('X');
+	$(".small.square:contains('O')").addClass('O');
+	$(".small.square:contains('')").addClass('U');
 
+	$(".big.square:contains('X')").addClass('X');
+	$(".big.square:contains('O')").addClass('O');
+	$(".big.square:contains('D')").addClass('D');
+	$(".big.square:contains('')").addClass('U');
 }
 
 function startGame(){
 	var centerBigSquare = $('.big.square').eq(4);
+
 	centerBigSquare.removeClass('inactive').addClass('active');
+
 	var centerSmallSquares = centerBigSquare.children();
+	
 	centerSmallSquares.click(function() {
-		$(this).removeClass('U').addClass('X').text('X'); 
+		// First player is 'X'
+		$(this).removeClass('U').addClass('X').text('X');
 		$(this).off();
-		$.ajax({url: '/challenges/params[:id]', method: 'post', dataType: 'json'})
+		$.ajax({
+			url: $('.big-board').data("url"),
+			data: {
+				lastMoveIndex: $('.small.square').index(this),
+				lastMoveValue: $(this).text()
+			},
+			type: 'PUT',
+			dataType: "json"
+		}).done(function(data) {
+			console.log(data);
+		});
 	});
+
 }
 
 

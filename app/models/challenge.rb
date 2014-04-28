@@ -11,12 +11,8 @@ class Challenge < ActiveRecord::Base
   end
 
   def getValue(index)
-  	value = self.state_of_play[index]
-  	if value == 'U' 
-  			return 'TEST' 	
-  	else
-  		return value
-  	end	
+    value = self.state_of_play[index]
+    return value == 'U' ? "" : value
   end
 
 end

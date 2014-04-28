@@ -35,6 +35,21 @@ class ChallengesController < ApplicationController
   end
 
   def update
+    @challenge = Challenge.find(params[:id])
+
+    @lastMoveIndex = params[:lastMoveIndex].to_i
+    @lastMoveValue = params[:lastMoveValue]
+    
+    # update challenge string here
+    @challenge.state_of_play[@lastMoveIndex] = @lastMoveValue
+
+    @challenge.save
+
+    respond_to do |format|
+      format.html { redirect_to @challenge }
+      format.json { render :json => { :lastMoveIndex => @lastMoveIndex,
+                                      :lastMoveValue => @lastMoveValue }}
+    end
   end
 
   def destroy
