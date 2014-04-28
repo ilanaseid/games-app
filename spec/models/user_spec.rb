@@ -53,8 +53,22 @@ describe User do
     end
   end
 
+  describe '.leader' do
+    it 'should return user with most wins' do
+      ilana = User.create(username: "ilana", email: "ilana@gmail.com", password: "ilana1", password_confirmation: "ilana1", admin: true, wins: 2)
+      stephen = User.create(username: "stephen", email: "stephen@gmail.com", password: "stephen1", password_confirmation: "stephen1", admin: true, wins: 0)
+      expect(User.leader).to eq(ilana)
+    end
+  end
 
-
+  describe '.top_(num)' do
+    it 'should return array of users ordered by wins' do
+      igor = User.create(username: "igor", email: "igor@gmail.com", password: "igor1", password_confirmation: "igor1", admin: true, wins: 10)
+      ilana = User.create(username: "ilana", email: "ilana@gmail.com", password: "ilana1", password_confirmation: "ilana1", admin: true, wins: 2)
+      stephen = User.create(username: "stephen", email: "stephen@gmail.com", password: "stephen1", password_confirmation: "stephen1", admin: true, wins: 1)
+      expect(User.top_(3)).to eq([igor, ilana, stephen])
+    end
+  end
 
 
 end

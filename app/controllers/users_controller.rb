@@ -2,6 +2,11 @@ class UsersController < ApplicationController
 
 before_action :require_authentication, only: [:index, :show, :edit, :update, :destroy]
 
+  def leaderboard
+    @leader = User.leader
+    @top_ten = User.top_(10)
+  end
+
   def index
     @users = User.all
   end

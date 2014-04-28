@@ -11,4 +11,6 @@ GamesApp::Application.routes.draw do
 	resources :users
 	resources :challenges
 
+	get '/leaderboard', to: 'users#leaderboard'
+
 end

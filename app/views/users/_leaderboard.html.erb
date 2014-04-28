@@ -1,0 +1,6 @@
+<p> Leader: <%= User.leader.username %> | <%= User.leader.wins %> </p>
+
+Top-10: </br>
+<% User.top_(10).each do |user| %>
+<%= user.username %> | <%= user.wins %> </br>
+<% end  %>

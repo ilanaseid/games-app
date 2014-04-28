@@ -16,12 +16,14 @@ class Challenge < ActiveRecord::Base
   		return 'TEST' 	
   	else
   		return value
-  	end	
+  	end
+  end
 
   def set_completed(winner)
       self.completed = true
       winner.add_win
-      self.user_challenges.where(user_id: winner.id).first.update_win
+      user_challenge = self.user_challenges.where(user_id: winner.id).first
+      user_challenge.update_win
   end
 
 end
