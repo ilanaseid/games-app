@@ -39,4 +39,6 @@ if the browser is not the enabled to play (bc it is not their move) then poll re
 
 Maybe there could be currency (mugs, adult favors, meals, dares, dogeCoin)
 
-
+for(var i = 0; i < arr.length; i++){
+console.log("Big Square: " + (Math.floor(i / 9)) + ", Small Square: " + (i % 9) + ", Top Middle Bottom: " + (Math.floor(i /3) % 3) + ", Left Center Right: " + (i % 3));
+}

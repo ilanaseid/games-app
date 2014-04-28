@@ -5,7 +5,7 @@
 
 
 <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
-<%= javascript_include_tag "http://localhost:9292/faye.js" %>
+<%= javascript_include_tag "#{ENV['FAYE_SERVER']}.js" %>
 <%= csrf_meta_tags %>
 <body>
 

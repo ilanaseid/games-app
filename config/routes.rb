@@ -1,6 +1,7 @@
 GamesApp::Application.routes.draw do
 
 
+
 	root :to => "welcome#index"
 
 	get '/login', to: 'sessions#new'
@@ -12,5 +13,6 @@ GamesApp::Application.routes.draw do
 	resources :challenges
 
 	post '/faye', to: 'challenges#event'
+
 
 end
