@@ -1,14 +1,14 @@
+
+
 <%= form_for @challenge do |f| %>
-	<div>
+	<p>
 		<%= f.label :game_type %>
-		<%= collection_select(:challenge, :game_type_id, GameType.all, :id, :name) %>
-	</div>
+		<%= collection_select(:challenge, :game_type_id, GameType.all, :id, :name) %><br />
 
-	<div>
-		
-	</div>
-
-
-
+  
+    User to challenge: <%= select_tag(:opponent_id, options_from_collection_for_select(current_user.other_users, :id, :username)) %> <br />
+	
 	<%= f.submit :gameON %>
+  </p>
 <% end %>
+
