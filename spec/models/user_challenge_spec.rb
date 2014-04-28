@@ -23,6 +23,6 @@ igor = User.create(username: "igor", email: "igor@gmail.com", password: "igor1",
 			UserChallenge.create!(user_id: ilana.id, challenge_id: 3, win: false)
 			UserChallenge.create!(user_id: igor.id, challenge_id: 3, win: true)
 			expect(UserChallenge.leader).to eq(ilana)
-		end 	
+		end
   end
 end
