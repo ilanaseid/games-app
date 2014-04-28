@@ -9,7 +9,7 @@ describe User do
   })}
 
   it { should validate_presence_of(:username) }
-  xit { should validate_presence_of(:admin) }
+  it { should ensure_inclusion_of(:admin).in_array([true, false]) }
   it { should validate_presence_of(:email) }
   it { should have_secure_password }
   it { should validate_uniqueness_of(:email) }
@@ -44,7 +44,17 @@ describe User do
     end
   end
 
-  
+  describe '#add_win' do
+    it 'should increment a users win' do
+      ilana = User.create(username: "ilana", email: "ilana@gmail.com", password: "ilana1", password_confirmation: "ilana1", admin: true, wins: 0)
+      user_challenge = UserChallenge.create!(user_id: ilana.id, challenge_id: 1, win: true)
+      ilana.add_win(user_challenge)
+      expect(ilana.wins).to equal(1)
+    end
+  end
+
+
+
 
 
 end

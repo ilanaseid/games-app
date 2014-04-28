@@ -15,10 +15,8 @@ class UserChallenge < ActiveRecord::Base
 		return self.where("win = ?", true).distinct
 	end
 
-	def completed
-		
+	def challenge_result
 		self.win = true
-		
 	end
 
 end

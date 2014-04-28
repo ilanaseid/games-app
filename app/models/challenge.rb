@@ -9,4 +9,9 @@ class Challenge < ActiveRecord::Base
   def last_player
     return User.find(self.last_player_id)
   end
+
+  def completed
+    self.completed = true
+  end
+
 end
