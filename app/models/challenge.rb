@@ -14,4 +14,9 @@ class Challenge < ActiveRecord::Base
     self.completed = true
   end
 
+  def getValue(index)
+    value = self.state_of_play[index]
+    return value == 'U' ? "" : value
+  end
+
 end
