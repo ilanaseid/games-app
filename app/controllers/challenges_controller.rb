@@ -22,7 +22,7 @@ class ChallengesController < ApplicationController
       game_type_id: params[:challenge][:game_type_id],
       last_player_id: [current_user.id, params[:opponent_id]].sample, 
       completed: false, 
-      state_of_play: "-" * 90)
+      state_of_play: "U" * 90)
 
     if @challenge.save
       redirect_to @challenge

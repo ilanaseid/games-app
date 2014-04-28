@@ -9,4 +9,14 @@ class Challenge < ActiveRecord::Base
   def last_player
     return User.find(self.last_player_id)
   end
+
+  def getValue(index)
+  	value = self.state_of_play[index]
+  	if value == 'U' 
+  			return 'TEST' 	
+  	else
+  		return value
+  	end	
+  end
+
 end

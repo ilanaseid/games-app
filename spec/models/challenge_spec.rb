@@ -11,7 +11,7 @@ describe Challenge do
   })}
 
   subject(:challenge) {Challenge.create({
-    state_of_play: "X,X,X,O,X, X,X,O,X",
+    state_of_play: "X" * 90,
     game_type_id: 2,
     last_player_id: user.id,
     completed: false
@@ -25,6 +25,12 @@ describe Challenge do
   describe '#last_player' do 
     it "should return the user object related to the player who made the last move" do
       expect(subject.last_player).to eq(user)
+    end
+  end
+
+  describe '#getValue' do 
+    it "should return the relevant character of the state_of_play string depending on index number in div" do
+      expect(subject.getValue(0)).to eq("X")
     end
   end
 
