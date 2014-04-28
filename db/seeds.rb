@@ -8,7 +8,7 @@
 
 ilana = User.create(username: "ilana", email: "ilana@gmail.com", password: "ilana1", password_confirmation: "ilana1", admin: true)
 
-igor = User.create(username: "igor", email: "igor@gmail.com", password: "igor1", password_confirmation: "igor1", admin: false)
+igor = User.create(username: "igor", email: "igor@gmail.com", password: "igor1", password_confirmation: "igor1", admin: true)
 
 stephen = User.create(
   username: "spork",
@@ -27,11 +27,21 @@ dave = User.create(
 tic_tac_foot = GameType.create(name: "Tic tac foot", rules: "blah blah blah")
 tic_tac_toe = GameType.create(name: "Tic Tac Toe", rules: "yada yada goose!")
 
-blank_state = "-" * 90
+# blank_state = "-" * 90
 
-challenge1 = Challenge.create(state_of_play: blank_state, game_type_id: tic_tac_foot.id, last_player_id: ilana.id, completed: false)
+# challenge1 = Challenge.create(state_of_play: blank_state, game_type_id: tic_tac_foot.id, last_player_id: ilana.id, completed: false)
+# challenge1 = Challenge.create(state_of_play: blank_state, game_type_id: tic_tac_foot.id, last_player_id: igor.id, completed: false)
+# challenge1 = Challenge.create(state_of_play: blank_state, game_type_id: tic_tac_foot.id, last_player_id: ilana.id, completed: false)
+# challenge1 = Challenge.create(state_of_play: blank_state, game_type_id: tic_tac_foot.id, last_player_id: ilana.id, completed: false)
+# challenge1 = Challenge.create(state_of_play: blank_state, game_type_id: tic_tac_foot.id, last_player_id: igor.id, completed: false)
 
-UserChallenge.create(user_id: ilana.id, challenge_id: challenge1.id, win: false)
+UserChallenge.create!(user_id: ilana.id, challenge_id: 1, win: true)
+UserChallenge.create!(user_id: igor.id, challenge_id: 1, win: false)
+UserChallenge.create!(user_id: ilana.id, challenge_id: 2, win: true)
+UserChallenge.create!(user_id: igor.id, challenge_id: 2, win: false)
+UserChallenge.create!(user_id: ilana.id, challenge_id: 3, win: false)
+UserChallenge.create!(user_id: igor.id, challenge_id: 3, win: true)
 
-UserChallenge.create(user_id: igor.id, challenge_id: challenge1.id, win: false)
+
+
 
