@@ -47,8 +47,8 @@ describe User do
   describe '#add_win' do
     it 'should increment a users win' do
       ilana = User.create(username: "ilana", email: "ilana@gmail.com", password: "ilana1", password_confirmation: "ilana1", admin: true, wins: 0)
-      user_challenge = UserChallenge.create!(user_id: ilana.id, challenge_id: 1, win: true)
-      ilana.add_win(user_challenge)
+      Challenge.create(game_type_id: 1, state_of_play: "X_OXXX__", completed: true)
+      ilana.add_win
       expect(ilana.wins).to equal(1)
     end
   end

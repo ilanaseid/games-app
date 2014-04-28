@@ -34,7 +34,18 @@ class ChallengesController < ApplicationController
   def edit
   end
 
+  #when a winner is decided, use this action
+  def set_winner
+    #assuming a params hash with needed information
+    @challenge = Challenge.find(params[:challenge_id])
+    @winner = User.find(params[:winner_id])
+    @challenge.completed(@winner)
+   
+    respond
+  end
+
   def update
+
   end
 
   def destroy

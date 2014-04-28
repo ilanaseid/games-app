@@ -12,10 +12,8 @@ class User < ActiveRecord::Base
     return ary
   end
 
-  def add_win(challenge)
-    if challenge.win
+  def add_win
       self.wins += 1
-    end
   end
 
 end

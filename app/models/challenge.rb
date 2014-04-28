@@ -10,8 +10,10 @@ class Challenge < ActiveRecord::Base
     return User.find(self.last_player_id)
   end
 
-  def completed
-    self.completed = true
+  def set_completed(winner)
+      self.completed = true
+      winner.add_win
+      self.user_challenges.where(user_id: winner.id).first.update_win
   end
 
 end

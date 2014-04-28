@@ -28,6 +28,29 @@ describe Challenge do
     end
   end
 
+  describe('#set_completed') do
+    it('should set the challenge to completed') do
+      ilana = User.create(username: "ilana", email: "ilana@gmail.com", password: "ilana1", password_confirmation: "ilana1", admin: true, wins: 0)
+      stephen = User.create(username: "stephen", email: "stephen@gmail.com", password: "ilana1", password_confirmation: "ilana1", admin: true, wins: 0)
+      challenge = Challenge.create(game_type_id: 1, last_player_id: ilana.id, state_of_play: "X_OXXX__", completed: true)
+      user_challenge = UserChallenge.create!(user_id: ilana.id, challenge_id: challenge.id, win: false)
+      user_challenge1 = UserChallenge.create!(user_id: stephen.id, challenge_id: challenge.id, win: false)
+      challenge.user_challenges << user_challenge
+      challenge.user_challenges << user_challenge1
+      challenge.set_completed(ilana)
+      expect(challenge.completed).to equal(true)
+    end
+  end
+
+  xit("should set win for the correct user_challenge") do
+        
+  end
+
+  xit("should increment the winning user wins by 1") do
+    
+  end
+
+
 end
 
 
