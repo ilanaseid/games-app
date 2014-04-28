@@ -56,6 +56,10 @@ end
  gem 'faye'
  gem 'thin'
 
+ group :production do
+ 	gem 'rails_12factor'
+ end
+
 # Use unicorn as the app server
 # gem 'unicorn'
 
@@ -64,3 +68,5 @@ end
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
+
+ruby "2.1.0"
