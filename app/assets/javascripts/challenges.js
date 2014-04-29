@@ -1,5 +1,3 @@
-
-
 $(document).ready(function(){
 	console.log("Loaded, bro!")
 	var bigBoard = $('.big-board');
