@@ -22,7 +22,7 @@ class ChallengesController < ApplicationController
       game_type_id: params[:challenge][:game_type_id],
       last_player_id: [current_user.id, params[:opponent_id]].sample, 
       completed: false, 
-      state_of_play: "-" * 90)
+      state_of_play: "U" * 90)
 
     if @challenge.save
       redirect_to @challenge
@@ -45,7 +45,21 @@ class ChallengesController < ApplicationController
   end
 
   def update
+    @challenge = Challenge.find(params[:id])
 
+    @lastMoveIndex = params[:lastMoveIndex].to_i
+    @lastMoveValue = params[:lastMoveValue]
+    
+    # update challenge string here
+    @challenge.state_of_play[@lastMoveIndex] = @lastMoveValue
+
+    @challenge.save
+
+    respond_to do |format|
+      format.html { redirect_to @challenge }
+      format.json { render :json => { :lastMoveIndex => @lastMoveIndex,
+                                      :lastMoveValue => @lastMoveValue }}
+    end
   end
 
   def destroy

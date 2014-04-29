@@ -14,6 +14,10 @@ class Challenge < ActiveRecord::Base
       self.completed = true
       winner.add_win
       self.user_challenges.where(user_id: winner.id).first.update_win
+
+  def getValue(index)
+    value = self.state_of_play[index]
+    return value == 'U' ? "" : value
   end
 
 end

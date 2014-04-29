@@ -38,12 +38,15 @@ dave = User.create(
 # challenge1 = Challenge.create(state_of_play: blank_state, game_type_id: tic_tac_foot.id, last_player_id: ilana.id, completed: false)
 # challenge1 = Challenge.create(state_of_play: blank_state, game_type_id: tic_tac_foot.id, last_player_id: igor.id, completed: false)
 
+
 # UserChallenge.create!(user_id: ilana.id, challenge_id: 1, win: true)
 # UserChallenge.create!(user_id: igor.id, challenge_id: 1, win: false)
 # UserChallenge.create!(user_id: ilana.id, challenge_id: 2, win: true)
 # UserChallenge.create!(user_id: igor.id, challenge_id: 2, win: false)
 # UserChallenge.create!(user_id: ilana.id, challenge_id: 3, win: false)
 # UserChallenge.create!(user_id: igor.id, challenge_id: 3, win: true)
+blank_state = "U" * 90
+
 
 
 
