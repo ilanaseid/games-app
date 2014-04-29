@@ -60,6 +60,8 @@ div.small{
 	display: inline-block;
 	float: left;
 	margin: 1px;
+  font-size: 28px;
+  font-family: 'Helvetica Neue', serif;
 }
 
 div.small:hover{
