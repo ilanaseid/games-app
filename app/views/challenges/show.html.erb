@@ -1,11 +1,16 @@
 
+<div id="players"> 
+	<div id="player-1"><%= User.find(@player1ID).username %></div>
+	<div id="player-2"><%= User.find(@player2ID).username %></div>
+</div>
+
 <div class="big-board" data-url="<%= challenge_path %>" }>
 
   <% for i in 0..8 do  %>
   	<div id="<%= i %>" class="big square inactive">
 
   		<% for j in 0..8 do  %>
-  			<div id="<%= j %>" class="small square"><%= @challenge.getValue(i*9 + j)%> </div>
+  			<div id="<%= j %>" class="small square"><%= @challenge.getValue(j)%> </div>
   		<% end %>
 
   	</div> 

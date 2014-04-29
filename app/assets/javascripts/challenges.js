@@ -4,6 +4,7 @@ $(document).ready(function(){
 	var bigSquares = $('.big.square');
 	var smallSquares = $('.small.square');
 	loadBoard();
+	changePlayer();
 	startGame();
 })
 
@@ -20,7 +21,9 @@ function loadBoard(){
 	$(".big.square:contains('')").addClass('U');
 }
 
+
 function startGame(){
+	//Load player
 	var centerBigSquare = $('.big.square').eq(4);
 
 	centerBigSquare.removeClass('inactive').addClass('active');
@@ -28,9 +31,9 @@ function startGame(){
 	var centerSmallSquares = centerBigSquare.children();
 	
 	centerSmallSquares.click(function() {
-		// First player is 'X'
 		$(this).removeClass('U').addClass('X').text('X');
 		$(this).off();
+		changePlayer();
 		$.ajax({
 			url: $('.big-board').data("url"),
 			data: {
@@ -43,7 +46,18 @@ function startGame(){
 			console.log(data);
 		});
 	});
+}
 
+function changePlayer(){
+	if ($('#player-2').hasClass('active')){
+		$('#player-2').removeClass('active');
+		$('#player-1').addClass('active');
+	} else if ($('#player-1').hasClass('active')) {
+		$('#player-1').removeClass('active');
+		$('#player-2').addClass('active');
+	} else {
+		$('#player-2').addClass('active');
+	};
 }
 
 

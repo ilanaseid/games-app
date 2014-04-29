@@ -13,6 +13,10 @@ class ChallengesController < ApplicationController
 
   def show
     @challenge = Challenge.find(params[:id])
+    playersArray = UserChallenge.where(challenge_id: @challenge.id).pluck('user_id')
+    @current_player_id = playersArray.reject { |user_id| user_id == @challenge.last_player_id }.first
+    @player1ID = playersArray[0]
+    @player2ID= playersArray[1]    
   end
 
   def new
@@ -22,11 +26,13 @@ class ChallengesController < ApplicationController
   def create
     @challenge = Challenge.new(
       game_type_id: params[:challenge][:game_type_id],
-      last_player_id: [current_user.id, params[:opponent_id]].sample, 
-      completed: false, 
+      last_player_id: current_user.id, 
+      completed: false,
       state_of_play: "U" * 90)
 
     if @challenge.save
+      UserChallenge.create(user_id: current_user.id, challenge_id: @challenge.id, win: false)
+      UserChallenge.create(user_id: params[:opponent_id], challenge_id: @challenge.id, win: false)
       redirect_to @challenge
     else
       redirect_to new_challenge_path
@@ -39,17 +45,17 @@ class ChallengesController < ApplicationController
   def update
     @challenge = Challenge.find(params[:id])
 
-    @lastMoveIndex = params[:lastMoveIndex].to_i
-    @lastMoveValue = params[:lastMoveValue]
+    @slastMoveIndex = params[:lastMoveIndex].to_i
     
+    @lastMoveValue = params[:lastMoveValue]
     state_array = @challenge.state_of_play.chars
-
     state_array[@lastMoveIndex] = @lastMoveValue
-
     updated_state = state_array.join
 
-    @challenge.update(state_of_play: updated_state, last_move_index: @lastMoveIndex)
-
+    playersArray = UserChallenge.where(challenge_id: @challenge.id).pluck('user_id')
+    @current_player_id = playersArray.reject { |user_id| user_id == @challenge.last_player_id }.first
+    
+    @challenge.update(state_of_play: updated_state, last_move_index: @lastMoveIndex, last_player_id: @current_player_id)
 
     respond_to do |format|
       format.html { redirect_to @challenge }
