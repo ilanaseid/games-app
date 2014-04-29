@@ -1,3 +1,5 @@
+require 'pry'
+
 class ChallengesController < ApplicationController
 
   # before_action :require_admin, only: [:index]
@@ -50,10 +52,14 @@ class ChallengesController < ApplicationController
     @lastMoveIndex = params[:lastMoveIndex].to_i
     @lastMoveValue = params[:lastMoveValue]
     
-    # update challenge string here
-    @challenge.state_of_play[@lastMoveIndex] = @lastMoveValue
+    state_array = @challenge.state_of_play.chars
 
-    @challenge.save
+    state_array[@lastMoveIndex] = @lastMoveValue
+
+    updated_state = state_array.join
+
+    @challenge.update(state_of_play: updated_state, last_move_index: @lastMoveIndex)
+
 
     respond_to do |format|
       format.html { redirect_to @challenge }
