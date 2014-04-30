@@ -77,7 +77,8 @@ class ChallengesController < ApplicationController
       #update a big square
       @lastMoveBigSquareIndex = params[:lastMoveBigSquareIndex].to_i
       @lastMoveBigSquareValue = params[:lastMoveBigSquareValue]
-      if !@lastMoveBigSqauareValue.empty?
+
+      if @lastMoveBigSqauareValue != nil
         state_array = @challenge.state_of_play.chars
         state_array[@lastMoveBigSquareIndex] = @lastMoveBigSqauareValue
         updated_state = state_array.join
