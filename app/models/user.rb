@@ -16,4 +16,19 @@ class User < ActiveRecord::Base
       self.wins += 1
   end
 
+  # Returns array of challenges in progress where it is current_user's turn
+  def my_turn
+    return self.challenges.where('completed = ? AND last_player_id != ?', false, self.id)
+  end
+
+  # Returns array of challenges in progress where it is not current_user's turn
+  def their_turn
+    return self.challenges.where('completed = ? AND last_player_id = ?', false, self.id)
+  end
+
+  # Returns array of challenges where completed is true.
+  def finished
+    return self.challenges.where('completed = ?', true)
+  end
+
 end

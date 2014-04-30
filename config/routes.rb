@@ -9,6 +9,7 @@ GamesApp::Application.routes.draw do
 
 	resources :messages
 	resources :users
+  get '/challenges/index_for_user', to: 'challenges#index_for_user'
 	resources :challenges
 
 end

@@ -1,6 +1,7 @@
 $(document).ready(function(){
 	console.log("Loaded, bro!")
 	assignClasses();	
+	myChallengesToggler();
 });
 
 var activeSquare;
@@ -109,4 +110,10 @@ function gamePlay(){
 			changePlayer();
 		} // END IF STATEMENT
 	});
+}
+
+function myChallengesToggler() {
+	$('.challenge-list').find('span').click(function() {
+		$(this).parent().parent().find('.challenge').slideToggle('slow', function() {});
+	})
 }

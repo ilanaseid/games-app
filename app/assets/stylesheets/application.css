@@ -30,6 +30,7 @@
 
  body{
  	background: #e6e6e6;
+  font-family: 'Helvetica Neue', serif;
  }
 
  div.big-board{
@@ -63,7 +64,6 @@
  	float: left;
  	margin: 1px;
  	font-size: 28px;
- 	font-family: 'Helvetica Neue', serif;
  }
 
 .active > .small.U:hover {
@@ -107,4 +107,14 @@
  	z-index: 2;
  	font-size: 100px;
  	background-color: rgba(245, 245, 245, 0.7);
+ }
+
+.challenge-list > h3 {
+  background-color: teal;
+  color: whitesmoke;
+  padding: 10px;
+ }
+
+ .challenge-list * span {
+  float: right;
  }

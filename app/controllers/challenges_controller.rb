@@ -10,6 +10,9 @@ class ChallengesController < ApplicationController
   end
 
   def index_for_user
+    @my_turn_challenges = current_user.my_turn
+    @their_turn_challenges = current_user.their_turn
+    @finished_challenges = current_user.finished
   end
 
   def show
