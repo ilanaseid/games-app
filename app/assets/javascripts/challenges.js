@@ -10,7 +10,7 @@ var turnCount;
 var lastMoveValue;
 var lasMoveBigSquareIndex;
 var lastMoveBigSquareValue;
-var gameOutcome:
+var gameOutcome;
 
 function assignClasses(){
 	// Add classes to squares based on text inside each div.
