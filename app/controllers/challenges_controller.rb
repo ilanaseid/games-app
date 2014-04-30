@@ -15,8 +15,14 @@ class ChallengesController < ApplicationController
   def show
     @challenge = Challenge.find(params[:id])
     playersArray = UserChallenge.where(challenge_id: @challenge.id).pluck('user_id')
-    @current_player_id = playersArray.reject { |user_id| user_id == @challenge.last_player_id }.first
-    @last_player_id = @challenge.last_player_id
+    if playersArray.include?(current_user.id)
+      @current_player_id = playersArray.reject { |user_id| user_id == @challenge.last_player_id }.first
+      @last_player_id = @challenge.last_player_id
+      render 'show'
+    else
+      flash[:notice] = "You must be a player in the game to view it."
+      redirect_to root_path
+    end
   end
 
   def new
@@ -37,34 +43,37 @@ class ChallengesController < ApplicationController
     else
       redirect_to new_challenge_path
     end
-  end
+  end # END CREATE
 
   def edit
   end
 
   def update
     @challenge = Challenge.find(params[:id])
-
-    @lastMoveIndex = params[:lastMoveIndex].to_i
     
-    @lastMoveValue = params[:lastMoveValue]
-    state_array = @challenge.state_of_play.chars
-    state_array[@lastMoveIndex] = @lastMoveValue
-    updated_state = state_array.join
-
     playersArray = UserChallenge.where(challenge_id: @challenge.id).pluck('user_id')
     @current_player_id = playersArray.reject { |user_id| user_id == @challenge.last_player_id }.first
-    
-    @challenge.update(state_of_play: updated_state, last_move_index: @lastMoveIndex, last_player_id: @current_player_id)
 
-    respond_to do |format|
-      format.html { redirect_to @challenge }
-      format.json { render :json => { :lastMoveIndex => @lastMoveIndex,
-                                      :lastMoveValue => @lastMoveValue,
-                                      :last_player_id => @current_player_id }}
-    end
-  end
+    if playersArray.include?(current_user.id)
+
+      @lastMoveIndex = params[:lastMoveIndex].to_i
+      @lastMoveValue = params[:lastMoveValue]
+      
+      state_array = @challenge.state_of_play.chars
+      state_array[@lastMoveIndex] = @lastMoveValue
+      updated_state = state_array.join
+      
+      @challenge.update(state_of_play: updated_state, last_move_index: @lastMoveIndex, last_player_id: @current_player_id)
+
+      respond_to do |format|
+        format.html { redirect_to @challenge }
+        format.json { render :json => { :lastMoveIndex => @lastMoveIndex,
+                                        :lastMoveValue => @lastMoveValue,
+                                        :last_player_id => @current_player_id }}
+      end
+    end # END IF
+  end # END UPDATE
 
   def destroy
   end
-end
+end # END CHALLENGES_CONTROLLER
