@@ -8,25 +8,26 @@ var bigSquares;
 var currentPlayerID;
 var turnCount;
 var lastMoveValue;
-var lastMoveBigSquareIndex;
-var lastMoveBigSquareValue;
-var gameOutcome;
 var winner;
 var bigSquareToCheck;
 
-function assignClasses(){
+var lastMoveBigSquareIndex = undefined;
+var lastMoveBigSquareValue = undefined;
+var gameOutcome = undefined;
+
+
+function assignClasses() {
 	// Add classes to squares based on text inside each div.
 	// All big-squares are assigned 'inactive' class in the challenges/show.html.erb view.
 	$(".small.square:contains('X')").addClass('X');
 	$(".small.square:contains('O')").addClass('O');
 	$(".small.square:contains('')").addClass('U');
 
-// 	$(".big.square:contains('X')").addClass('X');
-// 	$(".big.square:contains('O')").addClass('O');
-// 	$(".big.square:contains('D')").addClass('D');
-// 	$(".big.square:contains('')").addClass('U');
-gamePlay();
-
+	// 	$(".big.square:contains('X')").addClass('X');
+	// 	$(".big.square:contains('O')").addClass('O');
+	// 	$(".big.square:contains('D')").addClass('D');
+	// 	$(".big.square:contains('')").addClass('U');
+	gamePlay();
 }
 
 // function getCurrentPlayerID(){
@@ -84,6 +85,7 @@ function gamePlay(){
 			lastMoveBigSquareIndex = (bigSquareToCheck.attr('id') - 0) + 80;
 			checkWin(bigSquareToCheck);
 
+			// checkWin(bigSquareToCheck);
 			// checkWin($('.big-board'));
 
 			var indexOfLastClick = $('.small.square').index(this);

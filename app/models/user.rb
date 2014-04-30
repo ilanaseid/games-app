@@ -13,7 +13,7 @@ class User < ActiveRecord::Base
   end
 
   def add_win
-      self.wins += 1
+      self.update(wins: self.wins += 1)
   end
 
 end
