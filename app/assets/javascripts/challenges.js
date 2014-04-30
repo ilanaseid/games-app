@@ -1,117 +1,106 @@
 $(document).ready(function(){
 	console.log("Loaded, bro!")
-	var bigBoard = $('.big-board');
-	var bigSquares = $('.big.square');
-	var smallSquares = $('.small.square');
-	loadBoard();
-	startGame();
-})
+	assignClasses();	
+});
 
-function loadBoard(){
+var activeSquare;
+var bigSquares;
+var currentPlayerID;
+var turnCount;
+var lastMoveValue;
+
+function assignClasses(){
 	// Add classes to squares based on text inside each div.
 	// All big-squares are assigned 'inactive' class in the challenges/show.html.erb view.
 	$(".small.square:contains('X')").addClass('X');
 	$(".small.square:contains('O')").addClass('O');
 	$(".small.square:contains('')").addClass('U');
 
-	$(".big.square:contains('X')").addClass('X');
-	$(".big.square:contains('O')").addClass('O');
-	$(".big.square:contains('D')").addClass('D');
-	$(".big.square:contains('')").addClass('U');
+// 	$(".big.square:contains('X')").addClass('X');
+// 	$(".big.square:contains('O')").addClass('O');
+// 	$(".big.square:contains('D')").addClass('D');
+// 	$(".big.square:contains('')").addClass('U');
+gamePlay();
+
 }
 
-function startGame(){
-	var centerBigSquare = $('.big.square').eq(4);
+// function getCurrentPlayerID(){
+// 	currentPlayerID = $('.players').data('current-player');	
+// }
 
-	centerBigSquare.removeClass('inactive').addClass('active');
+function changePlayer(){
+	$('.player-1').toggleClass('current-player');
+	$('.player-2').toggleClass('current-player');
+}
 
-	var centerSmallSquares = centerBigSquare.children();
-	
-	centerSmallSquares.click(function() {
-		// First player is 'X'
-		$(this).removeClass('U').addClass('X').text('X');
-		$(this).off();
-		$.ajax({
-			url: $('.big-board').data("url"),
-			data: {
-				lastMoveIndex: $('.small.square').index(this),
-				lastMoveValue: $(this).text()
-			},
-			type: 'PUT',
-			dataType: "json"
-		}).done(function(data) {
-			console.log(data);
-		});
+function determineActiveSquare(){
+	var boardId = $('.big-board').attr('id');
+
+	if (boardId == "") {
+		activeSquare = 4
+	} else {
+		activeSquare = (boardId % 9)
+	};
+}
+
+function getLastMoveValue() {
+	var xCount = $('.big.square').find('.X').length;
+	var oCount = $('.big.square').find('.O').length;
+
+	if (xCount === oCount) {
+		return "O";
+	} else {
+		return "X";
+	};
+}
+
+function gamePlay(){
+	lastMoveValue = getLastMoveValue();
+	determineActiveSquare();
+
+	bigSquares = $('.big.square');
+	bigSquares.eq(activeSquare).removeClass('inactive').addClass('active');
+
+	$('.small.square').on('click', function() {
+		
+		// If the bigSquare is active and the smallSquare has class 'U', then remove class 'U', and based on the value of the last move, change the text and add a class of either "X" or "O" (dm)
+		if ( $(this).parent().hasClass('active') && $(this).hasClass('U') ) {
+			$(this).removeClass('U');
+			if (lastMoveValue === "X") {
+				$(this).addClass('O').text("O");
+				lastMoveValue = "O";
+			} else if (lastMoveValue === "O") {
+				$(this).addClass('X').text("X");
+				lastMoveValue = "X";
+			}
+		
+			// check for a win and send in the bigSquare that includes the small square that was just clicked.
+			var bigSquareToCheck = $(this).parent();
+			// checkWin(bigSquareToCheck);
+
+			var indexOfLastClick = $('.small.square').index(this);
+			
+			$.ajax({
+				url: $('.big-board').data("url"),
+				data: {
+					lastMoveIndex: indexOfLastClick,
+					lastMoveValue: lastMoveValue
+					// add variable in here that was set in the checkWin function only if a big-square game was decided.
+				},
+				type: 'PUT',
+				dataType: "json"
+			}).done(function(data) {
+				console.log(data);
+			});
+
+			// Change class of big-square from active to inactive.
+			$(this).parent().removeClass('active').addClass('inactive');
+
+			// Change class of big-square for opponent's next move from inactive to active.
+			var smallSquareRelativeIndex = $(this).parent().children().index($(this));
+
+			$('.big.square').eq(smallSquareRelativeIndex).removeClass('inactive').addClass('active');
+			changePlayer();
+		} // END IF STATEMENT
 	});
-
 }
-
-
-// function activateBigSquare(){
-// 	var bigSquares = $(".big.square");
-
-// }
-
-
-
-	// var turn = 0;
-	// squares.map(function(){
-	// 	console.log($(this))
-	// 	var square = $(this);
-	// 	square.addClass("unclicked");
-	// 	square.click(function(){
-	// 		if ($(this).hasClass("unclicked")){
-	// 			if (turn % 2 == 0){
-	// 				$(this).removeClass("unclicked").addClass("red");
-	// 				turn+=1;
-	// 				checkWin();
-	// 			} else {
-	// 				$(this).removeClass("unclicked").addClass("black");
-	// 				turn+=1;
-	// 				checkWin();
-	// 			}
-	// 		}
-	// 	});
-	// });
-
-// 	function checkWin(){
-// 		var squares = $("div.square").map(function(){
-// 			return this.className;
-// 		});
-// 		console.log(squares)
-// 		// rows
-// 		var firstRow = [squares[0],squares[1], squares[2]];
-// 		var secondRow = [squares[3],squares[4],squares[5]];
-// 		var thirdRow = [squares[6],squares[7],squares[8]];
-// 		var allRows = [firstRow,secondRow,thirdRow]
-// 		// columns 
-// 		var firstCol = [squares[0],squares[3], squares[6]];
-// 		var secondCol = [squares[1],squares[4],squares[7]];
-// 		var thirdCol = [squares[2],squares[5],squares[8]];
-// 		var allCols = [firstCol,secondCol,thirdCol];
-// 		// diagonals
-// 		var firstDiag = [squares[0],squares[4], squares[8]];
-// 		var secondDiag = [squares[2],squares[4],squares[6]];
-// 		var allDiags = [firstDiag,secondDiag]
-// 		// winner checking
-// 		winner = checkWins(allRows) || checkWins(allCols) || checkWins(allDiags);
-// 		if (winner !== undefined){
-// 			alert(winner);
-// 			window.location.reload();
-// 		} else if (winner == undefined && $(".unclicked").length == 0){
-// 			alert("draw!")
-// 			window.location.reload();
-// 		}
-// 	}
-// 	function checkWins(combos){
-// 		for(var i = 0; i < combos.length; i++){
-// 			if ($.unique(combos[i]).length === 1){
-// 				if (combos[i][0] === "square red"){
-// 					return "Red Wins";
-// 				} else if (combos[i][0] === "square black"){
-// 					return "Black Wins";
-// 				}
-// 			}
-// 		}	
-// 	}
-// }
