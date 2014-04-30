@@ -36,11 +36,11 @@ function changePlayer(){
 function determineActiveSquare(){
 	var boardId = $('.big-board').attr('id');
 
-	if (boardId == "") {
-		activeSquare = 4
+	if (boardId === "") {
+		activeSquare = 4;
 	} else {
-		activeSquare = (boardId % 9)
-	};
+		activeSquare = (boardId % 9);
+	}
 }
 
 function getLastMoveValue() {
@@ -51,7 +51,7 @@ function getLastMoveValue() {
 		return "O";
 	} else {
 		return "X";
-	};
+	}
 }
 
 function gamePlay(){
