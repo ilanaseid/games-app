@@ -1,0 +1,75 @@
+// For this solution I created all new dom elements
+// using i as my counter when creating the objects
+// then I use i as my turn counter for the game logic
+// The winning options also utilize the normal DOM elements instead of jquery objects.
+// Some people like to prefix their jQuery object variables with $ so that there is no confusion
+// This is not a best practice, more a personal preference.
+
+$(function(){
+  tictactoe();
+})
+
+function tictactoe(){
+  // make gamepieces
+  var i = 0;
+  var $body = $("#board");
+  var winner;
+  while (i < 9){
+    var $gamePiece = $("<div class='piece unclicked'>");
+    $body.append($gamePiece);
+    i+=1;
+  }
+  // add click event
+  $(".unclicked").each(function(){
+    var $piece = $(this);
+    $piece.click(function(){
+      if ($piece.hasClass("unclicked") && (i % 2 !== 0)){
+        $piece.removeClass("unclicked").addClass("clickedRed");
+        i--;
+        checkWin();
+      }else if ($piece.hasClass("unclicked") && (i % 2 === 0)){
+        $piece.removeClass("unclicked").addClass("clickedBlack");
+        i--;
+        checkWin();
+      } else if( i - 1 < 0){
+        window.location.reload();
+      }
+    });
+  });
+  // winning options
+
+  function checkWin(){
+    var allPieces = $(".piece");
+    // rows
+    var firstRow = [allPieces[0].className,allPieces[1].className, allPieces[2].className];
+    var secondRow = [allPieces[3].className,allPieces[4].className,allPieces[5].className];
+    var thirdRow = [allPieces[6].className,allPieces[7].className,allPieces[8].className];
+    var allRows = [firstRow,secondRow,thirdRow]
+    // columns
+    var firstCol = [allPieces[0].className,allPieces[3].className, allPieces[6].className];
+    var secondCol = [allPieces[1].className,allPieces[4].className,allPieces[7].className];
+    var thirdCol = [allPieces[2].className,allPieces[5].className,allPieces[8].className];
+    var allCols = [firstCol,secondCol,thirdCol];
+    // diagonals
+    var firstDiag = [allPieces[0].className,allPieces[4].className, allPieces[8].className];
+    var secondDiag = [allPieces[2].className,allPieces[4].className,allPieces[6].className];
+    var allDiags = [firstDiag,secondDiag]
+    winner = checkWins(allRows) || checkWins(allCols) || checkWins(allDiags);
+    if (winner !== undefined){
+      alert(winner);
+      window.location.reload();
+    }
+  }
+}
+
+function checkWins(combos){
+  for(var i = 0; i < combos.length; i++){
+    if ($.unique(combos[i]).length === 1){
+      if (combos[i][0] === "piece clickedRed"){
+        return "Red Wins";
+      } else if (combos[i][0] === "piece clickedBlack"){
+        return "Black Wins";
+      }
+    }
+  }
+}
