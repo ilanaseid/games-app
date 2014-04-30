@@ -48,23 +48,46 @@ class ChallengesController < ApplicationController
   def edit
   end
 
+  #when a winner is decided, use this action
+  def set_winner
+    #assuming a params hash with needed information
+
+   
+    respond
+  end
+
   def update
     @challenge = Challenge.find(params[:id])
     
+
     playersArray = UserChallenge.where(challenge_id: @challenge.id).pluck('user_id')
-    @current_player_id = playersArray.reject { |user_id| user_id == @challenge.last_player_id }.first
 
     if playersArray.include?(current_user.id)
 
       @lastMoveIndex = params[:lastMoveIndex].to_i
       @lastMoveValue = params[:lastMoveValue]
-      
       state_array = @challenge.state_of_play.chars
       state_array[@lastMoveIndex] = @lastMoveValue
       updated_state = state_array.join
+
+      @current_player_id = playersArray.reject { |user_id| user_id == @challenge.last_player_id }.first
       
       @challenge.update(state_of_play: updated_state, last_move_index: @lastMoveIndex, last_player_id: @current_player_id)
+      
+      #update a big square
+      @lastMoveBigSquareIndex = params[:lastMoveBigSquareIndex].to_i
+      @lastMoveBigSquareValue = params[:lastMoveBigSquareValue]
+      if !@lastMoveBigSqauareValue.empty?
+        state_array = @challenge.state_of_play.chars
+        state_array[@lastMoveBigSquareIndex] = @lastMoveBigSqauareValue
+        updated_state = state_array.join
+        @challenge.update(state_of_play: updated_state)
+      end
 
+      #update a winner
+      @gameOutcome = params[:gameOutcome]
+      @challenge.set_completed(@current_player_id, @gameOutcome) if @gameOutcome
+      
       respond_to do |format|
         format.html { redirect_to @challenge }
         format.json { render :json => { :lastMoveIndex => @lastMoveIndex,

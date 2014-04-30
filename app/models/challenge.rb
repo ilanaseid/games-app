@@ -10,6 +10,14 @@ class Challenge < ActiveRecord::Base
     return User.find(self.last_player_id)
   end
 
+  def set_completed(winner_id, gameOutcome)
+      self.completed = true
+      unless gameOutcome == "D"
+        User.find(winner_id).add_win
+        self.user_challenges.where(user_id: winner_id).first.update_win
+      end
+  end
+
   def getValue(index)
     character = self.state_of_play[index]
     return character == 'U' ? "" : character
