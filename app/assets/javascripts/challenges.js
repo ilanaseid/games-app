@@ -8,6 +8,9 @@ var bigSquares;
 var currentPlayerID;
 var turnCount;
 var lastMoveValue;
+var lasMoveBigSquareIndex;
+var lastMoveBigSquareValue;
+var gameOutcome:
 
 function assignClasses(){
 	// Add classes to squares based on text inside each div.
@@ -76,7 +79,8 @@ function gamePlay(){
 		
 			// check for a win and send in the bigSquare that includes the small square that was just clicked.
 			var bigSquareToCheck = $(this).parent();
-			// checkWin(bigSquareToCheck);
+			checkWin(bigSquareToCheck);
+			checkWin($('.big-board'));
 
 			var indexOfLastClick = $('.small.square').index(this);
 			
@@ -84,7 +88,10 @@ function gamePlay(){
 				url: $('.big-board').data("url"),
 				data: {
 					lastMoveIndex: indexOfLastClick,
-					lastMoveValue: lastMoveValue
+					lastMoveValue: lastMoveValue,
+					lastMoveBigSquareValue: lastMoveBigSquareValue,
+					lastMoveBigSquareIndex: lastMoveBigSquareIndex,
+					gameOutcome: gameOutcome
 					// add variable in here that was set in the checkWin function only if a big-square game was decided.
 				},
 				type: 'PUT',

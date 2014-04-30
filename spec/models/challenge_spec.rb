@@ -38,8 +38,12 @@ describe Challenge do
       user_challenge1 = UserChallenge.create!(user_id: stephen.id, challenge_id: challenge.id, win: false)
       challenge.user_challenges << user_challenge
       challenge.user_challenges << user_challenge1
-      challenge.set_completed(ilana)
+      challenge.set_completed(ilana, "O")
       expect(challenge.completed).to equal(true)
+      expect{ilana.wins}.to change{ilana.wins}.by(1)
+      expect{stephen.wins}.to_not change{stephen.wins}.by(1)
+      expect(user_challenge.win).to be(true)
+      expect(user_challenge1.win).to be(false)
     end
   end
 
