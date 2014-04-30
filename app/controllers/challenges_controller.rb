@@ -15,8 +15,7 @@ class ChallengesController < ApplicationController
     @challenge = Challenge.find(params[:id])
     playersArray = UserChallenge.where(challenge_id: @challenge.id).pluck('user_id')
     @current_player_id = playersArray.reject { |user_id| user_id == @challenge.last_player_id }.first
-    @player1ID = playersArray[0]
-    @player2ID= playersArray[1]    
+    @last_player_id = @challenge.last_player_id
   end
 
   def new
@@ -45,7 +44,7 @@ class ChallengesController < ApplicationController
   def update
     @challenge = Challenge.find(params[:id])
 
-    @slastMoveIndex = params[:lastMoveIndex].to_i
+    @lastMoveIndex = params[:lastMoveIndex].to_i
     
     @lastMoveValue = params[:lastMoveValue]
     state_array = @challenge.state_of_play.chars
@@ -60,7 +59,8 @@ class ChallengesController < ApplicationController
     respond_to do |format|
       format.html { redirect_to @challenge }
       format.json { render :json => { :lastMoveIndex => @lastMoveIndex,
-                                      :lastMoveValue => @lastMoveValue }}
+                                      :lastMoveValue => @lastMoveValue,
+                                      :last_player_id => @current_player_id }}
     end
   end
 

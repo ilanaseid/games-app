@@ -13,66 +13,98 @@
  */
 
  #navbar {
-  margin: 0;
-  padding: 0;
+ 	margin: 0;
+ 	padding: 0;
  }
 
  #navbar li {
-  display: inline;
-  padding: 0;
-  margin: 0;
-  padding-right: 10px;
+ 	display: inline;
+ 	padding: 0;
+ 	margin: 0;
+ 	padding-right: 10px;
  }
 
  .notice {
-  color: red;
+ 	color: red;
+ }
+
+ body{
+ 	background: #e6e6e6;
+ }
+
+ div.big-board{
+ 	width: 500px;
+ 	height: 500px;
+ 	margin-left: auto;
+ 	margin-right: auto;
+ 	text-align: center;
+ }
+
+ div.big{
+ 	width: 150px;
+ 	height: 150px;
+ 	border: 2px solid whitesmoke;
+ 	border-radius: 0%;
+ 	background: white;
+ 	margin: 1px;
+ 	display: inline-block;
+ 	text-align: center;
+ 	position: relative;
+ }
+
+ div.small{
+ 	width: 44px;
+ 	height: 44px;
+ 	border: 1px solid white;
+ 	background: whitesmoke;
+ 	display: inline-block;
+ 	text-align: center;
+ 	line-height: 44px;
+ 	float: left;
+ 	margin: 1px;
+ 	font-size: 28px;
+ 	font-family: 'Helvetica Neue', serif;
+ }
+
+ div.small:hover{
+ 	background-color: indianred;
+ 	-webkit-box-shadow: 4px 3px 6px 6px #CCCCCC;
+ 	-moz-box-shadow: 4px 3px 6px 6px #CCCCCC;
+ 	box-shadow: 4px 3px 6px 6px #CCCCCC;
+ }
+
+ div.active {
+ 	border: 4px solid #FAA937;
+ }
+
+ div.X {
+ 	color: #FAA937;
+ }
+
+  div.O {
+ 	color: #2185A1;
  }
 
 
-body{
-	background: #F8F8FF;
-}
+ div.inactive {
+ }
 
-div.big-board{
-	width: 500px;
-	height: 500px;
-	margin-left: auto;
-	margin-right: auto;
-	text-align: center;
-}
+ div.current-player {
+ 	padding: 2px;
+ 	border: 4px solid #FAA937;
+ }
 
-div.big{
-	width: 150px;
-	height: 150px;
-	border: 2px solid whitesmoke;
-	border-radius: 0%;
-	background: white;
-	margin: 1px;
-	display: inline-block;
-	text-align: center;
-}
+ div.players {
+ 	text-align: left;
+ 	padding: 2px;
+ }
 
-div.small{
-	width: 44px;
-	height: 44px;
-	border: 1px solid whitesmoke;
-	background: gray;
-	display: inline-block;
-	float: left;
-	margin: 1px;
-}
-
-div.small:hover{
-	background-color: indianred;
-	-webkit-box-shadow: 4px 3px 6px 6px #CCCCCC;
-	-moz-box-shadow: 4px 3px 6px 6px #CCCCCC;
-	box-shadow: 4px 3px 6px 6px #CCCCCC;
-}
-
-div.active {
-	border: 4px solid green;
-}
-
-div.inactive {
-	
-}
+ div.big-square-value{
+ 	width: 150px;
+ 	height: 150px;
+ 	line-height: 150px;
+ 	position: absolute;
+ 	z-index: 2;
+ 	font-size: 100px;
+ 	background-color: rgba(245, 245, 245, 0.7);
+ }
