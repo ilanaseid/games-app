@@ -3,6 +3,7 @@ require 'pry'
 class ChallengesController < ApplicationController
 
   # before_action :require_admin, only: [:index]
+  before_action :require_authentication
 
   def index
     @challenges = Challenge.all
@@ -14,8 +15,14 @@ class ChallengesController < ApplicationController
   def show
     @challenge = Challenge.find(params[:id])
     playersArray = UserChallenge.where(challenge_id: @challenge.id).pluck('user_id')
-    @current_player_id = playersArray.reject { |user_id| user_id == @challenge.last_player_id }.first
-    @last_player_id = @challenge.last_player_id
+    if playersArray.include?(current_user.id)
+      @current_player_id = playersArray.reject { |user_id| user_id == @challenge.last_player_id }.first
+      @last_player_id = @challenge.last_player_id
+      render 'show'
+    else
+      flash[:notice] = "You must be a player in the game to view it."
+      redirect_to root_path
+    end
   end
 
   def new
@@ -36,34 +43,61 @@ class ChallengesController < ApplicationController
     else
       redirect_to new_challenge_path
     end
-  end
+  end # END CREATE
 
   def edit
   end
 
+  #when a winner is decided, use this action
+  def set_winner
+    #assuming a params hash with needed information
+
+   
+    respond
+  end
+
   def update
     @challenge = Challenge.find(params[:id])
-
-    @lastMoveIndex = params[:lastMoveIndex].to_i
     
-    @lastMoveValue = params[:lastMoveValue]
-    state_array = @challenge.state_of_play.chars
-    state_array[@lastMoveIndex] = @lastMoveValue
-    updated_state = state_array.join
 
     playersArray = UserChallenge.where(challenge_id: @challenge.id).pluck('user_id')
-    @current_player_id = playersArray.reject { |user_id| user_id == @challenge.last_player_id }.first
-    
-    @challenge.update(state_of_play: updated_state, last_move_index: @lastMoveIndex, last_player_id: @current_player_id)
 
-    respond_to do |format|
-      format.html { redirect_to @challenge }
-      format.json { render :json => { :lastMoveIndex => @lastMoveIndex,
-                                      :lastMoveValue => @lastMoveValue,
-                                      :last_player_id => @current_player_id }}
-    end
-  end
+    if playersArray.include?(current_user.id)
+
+      @lastMoveIndex = params[:lastMoveIndex].to_i
+      @lastMoveValue = params[:lastMoveValue]
+      state_array = @challenge.state_of_play.chars
+      state_array[@lastMoveIndex] = @lastMoveValue
+      updated_state = state_array.join
+
+      @current_player_id = playersArray.reject { |user_id| user_id == @challenge.last_player_id }.first
+      
+      @challenge.update(state_of_play: updated_state, last_move_index: @lastMoveIndex, last_player_id: @current_player_id)
+      
+      #update a big square
+      @lastMoveBigSquareIndex = params[:lastMoveBigSquareIndex].to_i
+      @lastMoveBigSquareValue = params[:lastMoveBigSquareValue]
+
+      if @lastMoveBigSqauareValue != nil
+        state_array = @challenge.state_of_play.chars
+        state_array[@lastMoveBigSquareIndex] = @lastMoveBigSqauareValue
+        updated_state = state_array.join
+        @challenge.update(state_of_play: updated_state)
+      end
+
+      #update a winner
+      @gameOutcome = params[:gameOutcome]
+      @challenge.set_completed(@current_player_id, @gameOutcome) if @gameOutcome
+      
+      respond_to do |format|
+        format.html { redirect_to @challenge }
+        format.json { render :json => { :lastMoveIndex => @lastMoveIndex,
+                                        :lastMoveValue => @lastMoveValue,
+                                        :last_player_id => @current_player_id }}
+      end
+    end # END IF
+  end # END UPDATE
 
   def destroy
   end
-end
+end # END CHALLENGES_CONTROLLER

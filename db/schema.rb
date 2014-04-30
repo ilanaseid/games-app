@@ -52,6 +52,7 @@ ActiveRecord::Schema.define(version: 20140428152215) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "admin",           default: false
+    t.integer  "wins"
   end
 
 end
