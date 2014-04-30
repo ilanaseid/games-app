@@ -8,9 +8,9 @@ var bigSquares;
 var currentPlayerID;
 var turnCount;
 var lastMoveValue;
-var lasMoveBigSquareIndex;
+var lastMoveBigSquareIndex;
 var lastMoveBigSquareValue;
-var gameOutcome:
+var gameOutcome;
 
 function assignClasses(){
 	// Add classes to squares based on text inside each div.

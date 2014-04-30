@@ -60,7 +60,7 @@ class ChallengesController < ApplicationController
     state_array[@lastMoveIndex] = @lastMoveValue
     updated_state = state_array.join
 
-    playersArray = rChalUselenge.where(challenge_id: @challenge.id).pluck('user_id')
+    playersArray = User_Challenge.where(challenge_id: @challenge.id).pluck('user_id')
     @current_player_id = playersArray.reject { |user_id| user_id == @challenge.last_player_id }.first
     
     @challenge.update(state_of_play: updated_state, last_move_index: @lastMoveIndex, last_player_id: @current_player_id)
