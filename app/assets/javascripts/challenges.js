@@ -1,10 +1,15 @@
+var activeSquare;
+var turn = 0;
+
 $(document).ready(function(){
 	console.log("Loaded, bro!")
 	var bigBoard = $('.big-board');
 	var bigSquares = $('.big.square');
 	var smallSquares = $('.small.square');
 	loadBoard();
-	startGame();
+	// startGame();
+	alternatePlayer();
+	// checkWins();
 })
 
 function loadBoard(){
@@ -20,32 +25,109 @@ function loadBoard(){
 	$(".big.square:contains('')").addClass('U');
 }
 
-function startGame(){
+function alternatePlayer() {
 	var centerBigSquare = $('.big.square').eq(4);
+	activeSquare = centerBigSquare.removeClass('inactive').addClass('active');
 
-	centerBigSquare.removeClass('inactive').addClass('active');
+	activeSquare.children().click(function(e){
 
-	var centerSmallSquares = centerBigSquare.children();
-	
-	centerSmallSquares.click(function() {
-		// First player is 'X'
-		$(this).removeClass('U').addClass('X').text('X');
-		$(this).off();
-		$.ajax({
-			url: $('.big-board').data("url"),
-			data: {
-				lastMoveIndex: $('.small.square').index(this),
-				lastMoveValue: $(this).text()
-			},
-			type: 'PUT',
-			dataType: "json"
-		}).done(function(data) {
-			console.log(data);
-		});
+		if($('.small.square').hasClass('U') && turn % 2 == 0) {
+			var squareValue = $(this).text("X")
+			squareValue.removeClass('U').addClass('X');
+			$(this).off();
+			turn += 1;
+		}	else if ($('.small.square').hasClass('U') && turn % 2 !== 0) {
+			var squareValue = $(this).text("O")
+			squareValue.removeClass('U').addClass('O');
+			$(this).off();
+			turn +=1;
+		};
+
+		var squareId = e.target.id;
+
+		registerMove(squareId, squareValue.text());
 	});
-
 }
 
+function registerMove(squareId, squareValue) {
+	console.log('SquareID', squareId)
+	console.log('valueID', squareValue)
+
+	var url = $('.big-board').data("url");
+	var dataHash = {
+									squareId: squareId,
+									squareValue: squareValue
+									};
+
+	$.ajax({
+		url: url,
+		method: 'put',
+		dataType: 'json',
+		data: dataHash,
+		success: function(data) {
+			console.log(data);
+		}
+	});
+	checkSmallWin();
+}
+
+function checkSmallWin() {
+	var winningCombos = [[0,1,2], [0,3,6], [0,4,8], [1,4,7], [2,5,8], [2,4,6], [3,4,5], [6,7,8]];
+	var resultsArrayX = [];
+	var resultsArrayO = [];
+	activeSquare.children().each(function(index, element){
+		if ($(this).text() == "X") {
+			resultsArrayX.push(index);
+		} else if ($(this).text() == "O") {
+			resultsArrayO.push(index);
+		}
+	});
+	for(var i = 0; i < winningCombos.length; i++) {
+		var checkWinX = _.intersection(resultsArrayX, winningCombos[i]);
+																		[0, 2, 4, 8],
+		// if (checkWinX.length > 3) {
+		// 	return console.log(checkWinX);
+		// }
+
+		// var checkWinX = _.contains(resultsArrayX, winningCombos[i][0] && winningCombos[i][1] && winningCombos[i][2]) || _.contains(resultsArrayX, winningCombos[i][0], winningCombos[i][1], winningCombos[i][2]);
+		// var checkWinO = _.contains(resultsArrayO, winningCombos[i][0] && winningCombos[i][1] && winningCombos[i][2]) || _.contains(resultsArrayO, winningCombos[i][0], winningCombos[i][1], winningCombos[i][2]);
+		// console.log(winningCombos[i][0]);
+		// console.log(winningCombos[i][1]);
+		// console.log(winningCombos[i][2]);
+	}
+	console.log(resultsArrayX);
+	console.log(resultsArrayO);
+		console.log(checkWinX)
+	// console.log(checkWinO);
+}
+
+
+
+// function startGame(){
+// 	var centerBigSquare = $('.big.square').eq(4);
+
+// 	centerBigSquare.removeClass('inactive').addClass('active');
+
+// 	var centerSmallSquares = centerBigSquare.children();
+
+// 	centerSmallSquares.click(function() {
+// 		// First player is 'X'
+// 		$(this).removeClass('U').addClass('X').text('X');
+// 		$(this).off();
+// 		$.ajax({
+// 			url: $('.big-board').data("url"),
+// 			data: {
+// 				lastMoveIndex: $('.small.square').index(this),
+// 				lastMoveValue: $(this).text()
+// 			},
+// 			type: 'PUT',
+// 			dataType: "json"
+// 		}).done(function(data) {
+// 			console.log(data);
+// 		});
+// 	});
+
+// }
 
 // function activateBigSquare(){
 // 	var bigSquares = $(".big.square");
@@ -84,7 +166,7 @@ function startGame(){
 // 		var secondRow = [squares[3],squares[4],squares[5]];
 // 		var thirdRow = [squares[6],squares[7],squares[8]];
 // 		var allRows = [firstRow,secondRow,thirdRow]
-// 		// columns 
+// 		// columns
 // 		var firstCol = [squares[0],squares[3], squares[6]];
 // 		var secondCol = [squares[1],squares[4],squares[7]];
 // 		var thirdCol = [squares[2],squares[5],squares[8]];
@@ -112,6 +194,6 @@ function startGame(){
 // 					return "Black Wins";
 // 				}
 // 			}
-// 		}	
+// 		}
 // 	}
 // }

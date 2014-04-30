@@ -55,6 +55,8 @@ end
  gem 'bcrypt', '~> 3.1.7'
  gem 'thin'
 
+ gem 'underscore-rails'
+
 # Use unicorn as the app server
 # gem 'unicorn'
 
