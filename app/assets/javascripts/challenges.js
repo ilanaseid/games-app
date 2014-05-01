@@ -1,11 +1,7 @@
 $(document).ready(function(){
 	console.log("Loaded, bro!")
-<<<<<<< HEAD
 	assignClasses();	
 	myChallengesToggler();
-=======
-	assignClasses();
->>>>>>> 39a490d96185847874cc9e9437b77da68d2eac2b
 });
 
 var activeSquare;
