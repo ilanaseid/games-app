@@ -65,6 +65,9 @@ GEM
       activesupport (>= 3.0.0)
     ffi (1.9.3)
     formatador (0.2.4)
+    foundation-rails (5.2.2.0)
+      railties (>= 3.1.0)
+      sass (>= 3.2.0)
     guard (2.6.0)
       formatador (>= 0.2.4)
       listen (~> 2.7)
@@ -210,6 +213,7 @@ DEPENDENCIES
   capybara
   coffee-rails (~> 4.0.0)
   factory_girl
+  foundation-rails
   guard-rspec
   jasmine
   jbuilder (~> 1.2)

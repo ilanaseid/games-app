@@ -57,6 +57,8 @@ end
 
  gem 'underscore-rails'
 
+ gem 'foundation-rails'
+
 # Use unicorn as the app server
 # gem 'unicorn'
 

@@ -1,7 +1,7 @@
 
 <div class="players" data-current-player="<%= @current_player_id %>">
-	<div class="player-1 current-player"> <%= User.find(@current_player_id).username %></div>
-	<div class="player-2"> <%= User.find(@last_player_id).username %></div>
+	<div class="player-1 current-player"> Player1: <%= User.find(@current_player_id).username %></div>
+	<div class="player-2">Player2: <%= User.find(@last_player_id).username %></div>
 </div>
 
 <div class="big-board" data-url="<%= challenge_path %>" id="<%= @challenge.last_move_index %>">
