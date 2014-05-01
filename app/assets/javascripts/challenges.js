@@ -54,8 +54,14 @@ function loadBoard() {
 // }
 
 function changePlayer(){
-  $('.player-1').toggleClass('current-player');
-  $('.player-2').toggleClass('current-player');
+  $('.player-1').toggleClass('current-player').removeClass('p1-color').removeClass('p2-color');
+  $('.player-2').toggleClass('current-player').removeClass('p1-color').removeClass('p2-color');
+
+  if ( $('.player-1').hasClass('current-player') ) {
+    $( '.player-1' ).addClass(colorClassToAdd);
+  } else {
+    $( '.player-2' ).addClass(colorClassToAdd);
+  }
 }
 
 //on page reload should set 'activeSquareIndices' to an array with the big square indexes of all big squares that should have class .active
@@ -78,10 +84,17 @@ function determineActiveSquares(lastMoveIndex){
 
 function activateBigSquares(array){
   // First, deactivate all big squares
-  $('.big.square').removeClass('active').addClass('inactive');
+  $('.big.square').removeClass('p1-color').removeClass('p2-color').removeClass('active').addClass('inactive');
+
+  
+  if ( lastMoveValue === "X" ) {
+    colorClassToAdd = "p2-color";
+  } else {
+    colorClassToAdd = "p1-color";
+  }
 
   for(var i = 0; i < array.length; i++){
-    $('.big.square').eq(array[i]).removeClass('inactive').addClass('active');
+    $('.big.square').eq(array[i]).removeClass('inactive').addClass('active').addClass(colorClassToAdd);  
   }
 }
 
@@ -100,6 +113,7 @@ function gamePlay(){
      lastMoveValue = getLastMoveValue();
      var boardId = $('.big-board').attr('id');
   determineActiveSquares(boardId);
+  var colorClassToAdd;
   activateBigSquares(activeSquareIndices);
 
      $('.small.square').on('click', function() {
