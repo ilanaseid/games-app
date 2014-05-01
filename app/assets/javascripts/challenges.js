@@ -6,16 +6,18 @@ $(document).ready(function(){
 	myChallengesToggler();
 });
 
-var activeSquare;
+var Challange = function(){
+
+var activeSquare = [];
 var bigSquares;
 var currentPlayerID;
 var turnCount;
 var lastMoveValue;
 var winner;
 var bigSquareToCheck;
-var lastMoveBigSquareIndex = undefined;
-var lastMoveBigSquareValue = undefined;
-var gameOutcome = undefined;
+var lastMoveBigSquareIndex;
+var lastMoveBigSquareValue;
+var gameOutcome;
 
 
 function loadBoard() {
@@ -24,6 +26,8 @@ function loadBoard() {
 
 	$(".small.square:contains('X')").removeClass('U').addClass('X');
 	$(".small.square:contains('O')").removeClass('U').addClass('O');
+
+
 	
 	$('.big-board').children().each(function(index, element){
 		if ($(this).hasClass("X")){
@@ -53,9 +57,12 @@ function determineActiveSquare(){
 	var boardId = $('.big-board').attr('id');
 
 	if (boardId === "") {
-		activeSquare = 4;
-	} else {
+		activeSquare = [4];
+	} else if (activeSquare.length > 1) {
 		activeSquare = (boardId % 9);
+		if !($('.big-board').eq(activeSquare).hasClass('.U')) {
+			activeSquare = $('.big-square.')
+		}
 	}
 }
 
@@ -79,16 +86,7 @@ function gamePlay(){
 
 	$('.small.square').on('click', function() {
 
-		// If the bigSquare is active and the smallSquare has class 'U', then remove class 'U', and based on the value of the last move, change the text and add a class of either "X" or "O" (dm)
-		if ( $(this).parent().hasClass('active') && $(this).hasClass('U')) {
-			$(this).removeClass('U');
-			if (lastMoveValue === "X") {
-				$(this).addClass('O').text("O");
-				lastMoveValue = "O";
-			} else if (lastMoveValue === "O") {
-				$(this).addClass('X').text("X");
-				lastMoveValue = "X";
-			}
+	updateBigSquare();
 
 			// check for a win and send in the bigSquare that includes the small square that was just clicked.
 			bigSquareToCheck = $(this).parent();
@@ -102,21 +100,7 @@ function gamePlay(){
 
 			var indexOfLastClick = $('.small.square').index(this);
 
-			$.ajax({
-				url: $('.big-board').data("url"),
-				data: {
-					lastMoveIndex: indexOfLastClick,
-					lastMoveValue: lastMoveValue,
-					lastMoveBigSquareValue: winner,
-					lastMoveBigSquareIndex: lastMoveBigSquareIndex,
-					// gameOutcome: gameOutcome
-					// add variable in here that was set in the checkWin function only if a big-square game was decided.
-				},
-				type: 'PUT',
-				dataType: "json"
-			}).done(function(data) {
-				console.log(data);
-			});
+			
 
 			winner = "";
 
@@ -137,6 +121,37 @@ function myChallengesToggler() {
 		$(this).parent().parent().find('.challenge').slideToggle('slow', function() {});
 	})
 }
+
+// If the bigSquare is active and the smallSquare has class 'U', then remove class 'U', and based on the value of the last move, change the text and add a class of either "X" or "O" (dm)
+function updateBigSquare(){
+	if ( $(this).parent().hasClass('active') && $(this).hasClass('U')) {
+		$(this).removeClass('U');
+		if (lastMoveValue === "X") {
+			$(this).addClass('O').text("O");
+			lastMoveValue = "O";
+		} else if (lastMoveValue === "O") {
+			$(this).addClass('X').text("X");
+			lastMoveValue = "X";
+	}
+}
+
+function updateServer()
+	$.ajax({
+					url: $('.big-board').data("url"),
+					data: {
+						lastMoveIndex: indexOfLastClick,
+						lastMoveValue: lastMoveValue,
+						lastMoveBigSquareValue: winner,
+						lastMoveBigSquareIndex: lastMoveBigSquareIndex,
+						// gameOutcome: gameOutcome
+						// add variable in here that was set in the checkWin function only if a big-square game was decided.
+					},
+					type: 'PUT',
+					dataType: "json"
+				}).done(function(data) {
+					console.log(data);
+				});
+	}
 
 function checkWin(bigSquareToCheck) {
 	var winningCombos = [[0,1,2], [0,3,6], [0,4,8], [1,4,7], [2,5,8], [2,4,6], [3,4,5], [6,7,8]];
@@ -166,6 +181,7 @@ function checkWin(bigSquareToCheck) {
 	console.log(intersectionArrayX)
 	console.log(intersectionArrayO)
 
+
 	for(var i = 0; i < winningCombos.length; i++) {
 		if(intersectionArrayX[i].length > 2) {
 			winner = "X";
@@ -193,4 +209,4 @@ function checkWin(bigSquareToCheck) {
 		}
 	}
 }
-
+};
