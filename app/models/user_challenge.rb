@@ -8,7 +8,6 @@ class UserChallenge < ActiveRecord::Base
 
 	def update_win
 		#winner has the user_challenge
-		self.win = true
-		self.save
+		self.update(win: true)
 	end
 end

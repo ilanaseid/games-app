@@ -1,10 +1,15 @@
 
-<div class="big-board">
-<% for i in 0..8 do  %>
-	<div id="<%= i %>" class="big square inactive">
-		<% for j in 0..8 do  %>
-			<div id="<%= j %>" class="small square"><%= @challenge.getValue(i*9 + j)%> </div>
-		<% end %>
-	</div> 
-<% end %>
+<div class="players" data-current-player="<%= @current_player_id %>">
+	<div class="player-1 current-player"> <%= User.find(@current_player_id).username %></div>
+	<div class="player-2"> <%= User.find(@last_player_id).username %></div>
+</div>
+
+<div class="big-board <%= @challenge.outcome %>" data-url="<%= challenge_path %>" id="<%= @challenge.last_move_index %>">
+  <% for i in 0..8 do  %>
+  	<div id="<%= i %>" class="big square inactive <%=(@challenge.getBigSquareValue(i + 81))%>">
+  		<% for j in 0..8 do  %>
+  			<div id="<%= i*9 + j %>" class="small square U"><%= @challenge.getValue(i*9 + j) %></div>
+  		<% end %>
+  	</div>
+  <% end %>
 </div>
