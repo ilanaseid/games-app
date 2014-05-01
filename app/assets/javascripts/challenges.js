@@ -2,14 +2,10 @@ $(document).on("page:change",function(){
 	console.log("Loaded, bro!")
 
   loadBoard();
-
   myChallengesToggler();
 });
 
-var Challange = function(){
-
 var activeSquareIndices = [];
-var bigSquares = $('.big.square');
 var currentPlayerID;
 var turnCount;
 var lastMoveValue;
@@ -26,8 +22,6 @@ function loadBoard() {
   $(".small.square:contains('X')").removeClass('U').addClass('X');
   $(".small.square:contains('O')").removeClass('U').addClass('O');
 
-
-  
   $('.big-board').children().each(function(index, element){
     if ($(this).hasClass("X")){
       var newDiv = $('<div>').addClass('big-square-value').addClass('X').text('X');
@@ -40,6 +34,7 @@ function loadBoard() {
       $(this).prepend(newDiv);
     }
   });
+
   gamePlay();
 }
 
@@ -66,12 +61,13 @@ function determineActiveSquares(lastMoveIndex){
       })
     }
   }
-  return activeSquareIndices;
 }
 
 function activateBigSquares(array){
-  for(var i = 0; i > array.length; i++){
-    bigSquares.eq(i).removeClass('inactive').addClass('active');
+  for(var i = 0; i < array.length; i++){
+    $('.big.square').eq(array[i]).removeClass('inactive').addClass('active');
+    // console.log($('.big.square').eq(array[i]));
+    console.log($('.big.square'));
   }
 }
 
@@ -89,25 +85,49 @@ function getLastMoveValue() {
 function gamePlay(){
 	lastMoveValue = getLastMoveValue();
 	var boardId = $('.big-board').attr('id');
-  var activateThis = determineActiveSquares(boardId);
-  activateBigSquares(activateThis);
+  determineActiveSquares(boardId);
+  activateBigSquares(activeSquareIndices);
 
 	$('.small.square').on('click', function() {
 
-    updateBigSquare();
+    // If the bigSquare is active and the smallSquare has class 'U', then remove class 'U', and based on the value of the last move, change the text and add a class of either "X" or "O" (dm)
+    if ( $(this).parent().hasClass('active') && $(this).hasClass('U')) {
+      $(this).removeClass('U');
+      if (lastMoveValue === "X") {
+        $(this).addClass('O').text("O");
+        lastMoveValue = "O";
+      } else if (lastMoveValue === "O") {
+        $(this).addClass('X').text("X");
+        lastMoveValue = "X";
+      }
+    }
 
 		// check for a win and send in the bigSquare that includes the small square that was just clicked.
 		bigSquareToCheck = $(this).parent();
 
 		lastMoveBigSquareIndex = (bigSquareToCheck.attr('id') - 0) + 81;
 		
-		checkWin(bigSquareToCheck);
+		// checkWin(bigSquareToCheck);
 		// checkWin(bigSquareToCheck);
 		// checkWin($('.big-board'));
 
-		var indexOfLastClick = $('.small.square').index(this);
+		var indexOfLastClick = $('.small.square').index( $( this ) );
 
-		updateServer();
+		$.ajax({
+            url: $('.big-board').data("url"),
+            data: {
+              lastMoveIndex: indexOfLastClick,
+              lastMoveValue: lastMoveValue,
+              lastMoveBigSquareValue: winner,
+              lastMoveBigSquareIndex: lastMoveBigSquareIndex,
+              // gameOutcome: gameOutcome
+              // add variable in here that was set in the checkWin function only if a big-square game was decided.
+            },
+            type: 'PUT',
+            dataType: "json"
+          }).done(function(data) {
+            console.log(data);
+          });
 
 		winner = "";
 
@@ -121,8 +141,7 @@ function gamePlay(){
 		$('.big.square').eq(smallSquareRelativeIndex).removeClass('inactive').addClass('active');
 		
 		changePlayer();
-		} // END ON
-	});
+	}); // END ON
 }
 
 function myChallengesToggler() {
@@ -131,37 +150,6 @@ function myChallengesToggler() {
 		$(this).parent().parent().find('.challenge').slideToggle('slow', function() {});
 	})
 }
-
-// If the bigSquare is active and the smallSquare has class 'U', then remove class 'U', and based on the value of the last move, change the text and add a class of either "X" or "O" (dm)
-function updateBigSquare(){
-  if ( $(this).parent().hasClass('active') && $(this).hasClass('U')) {
-    $(this).removeClass('U');
-    if (lastMoveValue === "X") {
-      $(this).addClass('O').text("O");
-      lastMoveValue = "O";
-    } else if (lastMoveValue === "O") {
-      $(this).addClass('X').text("X");
-      lastMoveValue = "X";
-  }
-}
-
-function updateServer()
-  $.ajax({
-          url: $('.big-board').data("url"),
-          data: {
-            lastMoveIndex: indexOfLastClick,
-            lastMoveValue: lastMoveValue,
-            lastMoveBigSquareValue: winner,
-            lastMoveBigSquareIndex: lastMoveBigSquareIndex,
-            // gameOutcome: gameOutcome
-            // add variable in here that was set in the checkWin function only if a big-square game was decided.
-          },
-          type: 'PUT',
-          dataType: "json"
-        }).done(function(data) {
-          console.log(data);
-        });
-  }
 
 function checkWin(bigSquareToCheck) {
   var winningCombos = [[0,1,2], [0,3,6], [0,4,8], [1,4,7], [2,5,8], [2,4,6], [3,4,5], [6,7,8]];
@@ -219,4 +207,3 @@ function checkWin(bigSquareToCheck) {
     }
   }
 }
-};
