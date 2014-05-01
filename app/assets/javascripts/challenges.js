@@ -127,6 +127,7 @@ function gamePlay(){
 			var smallSquareRelativeIndex = $(this).attr('id') % 9;
 
 			$('.big.square').eq(smallSquareRelativeIndex).removeClass('inactive').addClass('active');
+			
 			changePlayer();
 		} // END IF STATEMENT
 	});
