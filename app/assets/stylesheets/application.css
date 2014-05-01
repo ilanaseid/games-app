@@ -126,6 +126,8 @@ position: relative;
   color: whitesmoke;
   padding: 10px;
   margin-bottom: 0;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
 }
 
 .challenge-list * span {
