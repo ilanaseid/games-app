@@ -13,7 +13,7 @@ class User < ActiveRecord::Base
   end
 
   def add_win
-      self.wins += 1
+      self.update(wins: self.wins += 1)
   end
 
   # Returns array of challenges in progress where it is current_user's turn

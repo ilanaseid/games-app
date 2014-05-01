@@ -41,6 +41,7 @@ challenge4 = Challenge.create(state_of_play: blank_state, game_type_id: tic_tac_
 challenge5 = Challenge.create(state_of_play: blank_state, game_type_id: tic_tac_foot.id, last_player_id: igor.id, completed: false)
 
 
+
 UserChallenge.create!(user_id: ilana.id, challenge_id: challenge1.id, win: false)
 UserChallenge.create!(user_id: igor.id, challenge_id: challenge1.id, win: false)
 UserChallenge.create!(user_id: ilana.id, challenge_id: challenge2.id, win: false)
@@ -51,6 +52,7 @@ UserChallenge.create!(user_id: ilana.id, challenge_id: challenge4.id, win: false
 UserChallenge.create!(user_id: igor.id, challenge_id: challenge4.id, win: false)
 UserChallenge.create!(user_id: ilana.id, challenge_id: challenge5.id, win: false)
 UserChallenge.create!(user_id: igor.id, challenge_id: challenge5.id, win: false)
+
 
 
 
