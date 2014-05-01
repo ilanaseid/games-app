@@ -50,10 +50,15 @@ group :development do
  gem 'binding_of_caller'
 end
 
+##TESTTESTTEST
 
 # Use ActiveModel has_secure_password
  gem 'bcrypt', '~> 3.1.7'
  gem 'thin'
+
+ group :production do
+ 	gem 'rails_12factor'
+ end
 
  gem 'underscore-rails'
 
@@ -65,3 +70,5 @@ end
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
+
+ruby "2.1.0"

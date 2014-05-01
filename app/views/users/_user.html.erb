@@ -1,9 +1,14 @@
-<p>
-  <strong>User ID:</strong> <%= user.id %><br />
-  <strong>Username:</strong> <%= user.username %><br />
-  <strong>Email:</strong> <%= user.email %><br />
-  <strong>Created:</strong> <%= user.created_at %><br />
-  <%= link_to "View", user %>
-  <%= link_to "Edit", edit_user_path(user) %>
-  <%= link_to "Delete", user, method: :delete, data: { confirm: "Are you sure?" } %>
-</p>
+<div class="user">
+  <div class="profile-pic">
+    <img src="<%= asset_path user.image_url %>" alt="">
+  </div>
+  <div class="user-details">
+    <strong>User ID:</strong> <%= user.id %><br />
+    <strong>Username:</strong> <%= user.username %><br />
+    <strong>Email:</strong> <%= user.email %><br />
+    <strong>Created:</strong> <%= user.created_at %><br />
+    <%= link_to "View", user %>
+    <%= link_to "Edit", edit_user_path(user) %>
+    <%= link_to "Delete", user, method: :delete, data: { confirm: "Are you sure?" } %>
+  </div>
+</div>

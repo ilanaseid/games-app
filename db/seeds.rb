@@ -45,6 +45,36 @@ derek = User.create(
   image_url: 'derek.JPG'
   )
 
+mckenneth = User.create(
+  username: "mckenneth",
+  email: "mck@mck.com",
+  password: "pw1",
+  password_confirmation: "pw1",
+  admin: true,
+  wins: 4,
+  image_url: 'mckenneth.jpg'
+  )
+
+adam = User.create(
+  username: "adam",
+  email: "adam@adam.com",
+  password: "pw1",
+  password_confirmation: "pw1",
+  admin: true,
+  wins: 4,
+  image_url: 'adam.jpg'
+  )
+
+hari = User.create(
+  username: "hari",
+  email: "hari@hari.com",
+  password: "pw1",
+  password_confirmation: "pw1",
+  admin: true,
+  wins: 4,
+  image_url: 'hari.jpg'
+  )
+
 tic_tac_foot = GameType.create(name: "Tic Tac Foot", rules: "blah blah blah")
 tic_tac_toe = GameType.create(name: "Tic Tac Toe", rules: "yada yada goose!")
 
