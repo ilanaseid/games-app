@@ -158,3 +158,10 @@ width: 100px;
 border-radius: 25%;
 display: inline-block;
 }
+
+.profile-pic {
+  display: inline-block;
+}
+.user-details {
+  display: inline-block;
+}
