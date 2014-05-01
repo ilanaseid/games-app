@@ -49,11 +49,13 @@ function changePlayer(){
 
 //on page reload should set 'activeSquareIndices' to an array with the big square indexes of all big squares that should have class .active
 function determineActiveSquares(lastMoveIndex){
+
   activeSquareIndices = [];
   if (lastMoveIndex === "") {
     activeSquareIndices = [4];
-  } else {
-    if ($('.big.square').eq(lastMoveIndex % 9).hasClass('.U')) {
+  } 
+  else {
+    if ($('.big.square').eq(lastMoveIndex % 9).hasClass('U')) {
          activeSquareIndices = [(lastMoveIndex % 9)];
     } else {
       $('.big.square.U').each(function(){
@@ -64,10 +66,11 @@ function determineActiveSquares(lastMoveIndex){
 }
 
 function activateBigSquares(array){
+  // First, deactivate all big squares
+  $('.big.square').removeClass('active').addClass('inactive');
+
   for(var i = 0; i < array.length; i++){
-    $('.big.square').eq(array[i]).removeClass('inactive').addClass('active');
-    // console.log($('.big.square').eq(array[i]));
-    console.log($('.big.square'));
+    $('.big.square').eq(array[i]).removeClass('inactive').addClass('active');  
   }
 }
 
@@ -100,47 +103,48 @@ function gamePlay(){
         $(this).addClass('X').text("X");
         lastMoveValue = "X";
       }
-    }
+    // NOTE: this if statement doesn't end here.  It spans the entire .on function! (dm)
 
-		// check for a win and send in the bigSquare that includes the small square that was just clicked.
-		bigSquareToCheck = $(this).parent();
+      bigSquareToCheck = $(this).parent();
 
-		lastMoveBigSquareIndex = (bigSquareToCheck.attr('id') - 0) + 81;
-		
-		// checkWin(bigSquareToCheck);
-		// checkWin(bigSquareToCheck);
-		// checkWin($('.big-board'));
+      lastMoveBigSquareIndex = (bigSquareToCheck.attr('id') - 0) + 81;
+      
+  		// check for a win and send in the bigSquare that includes the small square that was just clicked.
+  		checkWin(bigSquareToCheck);
+  		// checkWin($('.big-board'));
 
-		var indexOfLastClick = $('.small.square').index( $( this ) );
+  		var indexOfLastClick = $('.small.square').index( $( this ) );
 
-		$.ajax({
-            url: $('.big-board').data("url"),
-            data: {
-              lastMoveIndex: indexOfLastClick,
-              lastMoveValue: lastMoveValue,
-              lastMoveBigSquareValue: winner,
-              lastMoveBigSquareIndex: lastMoveBigSquareIndex,
-              // gameOutcome: gameOutcome
-              // add variable in here that was set in the checkWin function only if a big-square game was decided.
-            },
-            type: 'PUT',
-            dataType: "json"
-          }).done(function(data) {
-            console.log(data);
-          });
+  		$.ajax({
+              url: $('.big-board').data("url"),
+              data: {
+                lastMoveIndex: indexOfLastClick,
+                lastMoveValue: lastMoveValue,
+                lastMoveBigSquareValue: winner,
+                lastMoveBigSquareIndex: lastMoveBigSquareIndex,
+                // gameOutcome: gameOutcome
+                // add variable in here that was set in the checkWin function only if a big-square game was decided.
+              },
+              type: 'PUT',
+              dataType: "json"
+            }).done( function( data ) {
+              console.log( data );
+            });
 
-		winner = "";
+  		winner = "";
 
-		// Change class of big-square from active to inactive.
-		$(this).parent().removeClass('active').addClass('inactive');
+  		// Change class of big-square for opponent's next move from inactive to active.
+  		var smallSquareRelativeIndex = $( this ).attr( 'id' ) % 9;
+      
+      console.log( smallSquareRelativeIndex );
+      determineActiveSquares( smallSquareRelativeIndex );
 
-		// Change class of big-square for opponent's next move from inactive to active.
-		var smallSquareRelativeIndex = $(this).attr('id') % 9;
-    determineActiveSquares(smallSquareRelativeIndex);
+      console.log( activeSquareIndices );
+      activateBigSquares( activeSquareIndices );
+  		  		
+  		changePlayer();
 
-		$('.big.square').eq(smallSquareRelativeIndex).removeClass('inactive').addClass('active');
-		
-		changePlayer();
+  } // END IF
 	}); // END ON
 }
 
@@ -166,8 +170,8 @@ function checkWin(bigSquareToCheck) {
     }
   });
 
-  console.log(resultsArrayX)
-  console.log(resultsArrayO)
+  // console.log(resultsArrayX)
+  // console.log(resultsArrayO)
 
   for(var i = 0; i < winningCombos.length; i++) {
     var checkWinX = _.intersection(resultsArrayX, winningCombos[i]);
@@ -176,8 +180,8 @@ function checkWin(bigSquareToCheck) {
     intersectionArrayO.push(checkWinO)
   };
   
-  console.log(intersectionArrayX)
-  console.log(intersectionArrayO)
+  // console.log(intersectionArrayX)
+  // console.log(intersectionArrayO)
 
 
   for(var i = 0; i < winningCombos.length; i++) {
