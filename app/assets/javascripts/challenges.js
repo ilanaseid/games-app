@@ -16,10 +16,6 @@ var gameWinner = undefined;
 var bigSquareToCheck;
 var lastMoveBigSquareIndex = undefined;
 var lastMoveBigSquareValue = undefined;
-<<<<<<< HEAD
-=======
-var gameOutcome = undefined;
->>>>>>> 5a205c4458860f1ffcf9c2234db8d2cbff8eed49
 
 function loadBoard() {
 	// Add classes to squares based on text inside each div.
