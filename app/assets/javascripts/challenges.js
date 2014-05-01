@@ -172,6 +172,7 @@ function checkWin(bigSquareToCheck) {
 	var intersectionArrayX = [];
 	var intersectionArrayO = [];
 
+
 	bigSquareToCheck.children().each(function(index, element){
 		if ($(this).text().trim() == "X" || $(this).text().trim() == "D") {
 			resultsArrayX.push(index);
@@ -220,6 +221,7 @@ function checkWin(bigSquareToCheck) {
 			bigSquareToCheck.addClass(squareWinner);
 			console.log("IT'S A DRAW");
 			checkBoardWin();
+			break;
 		}
 	}
 }
@@ -232,11 +234,17 @@ function checkBoardWin() {
 	var intersectionArrayO = [];
 
 	$('.big-board').children().each(function(index, element){
-		if ($(this).hasClass('X') || $(this).hasClass('D')) {
+		if ($(this).hasClass('D')) {
 			resultsArrayX.push(index);
-		} else if ($(this).hasClass('O') || $(this).hasClass('D')) {
+			resultsArrayO.push(index);
+		} 
+
+		if ($(this).hasClass('X')) {
+			resultsArrayX.push(index);
+		} else if ($(this).hasClass('O')){
 			resultsArrayO.push(index);
 		}
+		
 	});
 
 	console.log(resultsArrayX)
@@ -270,6 +278,7 @@ function checkBoardWin() {
 			var newDiv = $('<div>').addClass('big-board-value').addClass(gameWinner).text(gameWinner);
 			$('.big-board').prepend(newDiv);
 			console.log("IT'S A DRAW");
+			break;
 		}
 	}
 }
