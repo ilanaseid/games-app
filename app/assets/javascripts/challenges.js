@@ -1,4 +1,4 @@
-$(document).ready(function(){
+$(document).on("page:change",function(){
 	console.log("Loaded, bro!")
 
 	loadBoard();
@@ -16,6 +16,10 @@ var gameWinner = undefined;
 var bigSquareToCheck;
 var lastMoveBigSquareIndex = undefined;
 var lastMoveBigSquareValue = undefined;
+<<<<<<< HEAD
+=======
+var gameOutcome = undefined;
+>>>>>>> 5a205c4458860f1ffcf9c2234db8d2cbff8eed49
 
 function loadBoard() {
 	// Add classes to squares based on text inside each div.
@@ -61,6 +65,7 @@ function changePlayer(){
 }
 
 function determineActiveSquare(){
+	// boardId gets set to the last_move_index when the page is reloaded
 	var boardId = $('.big-board').attr('id');
 
 	if (boardId === "") {
@@ -135,6 +140,7 @@ function gamePlay(){
 			var smallSquareRelativeIndex = $(this).attr('id') % 9;
 
 			$('.big.square').eq(smallSquareRelativeIndex).removeClass('inactive').addClass('active');
+			
 			changePlayer();
 		} // END IF STATEMENT
 	});
@@ -142,7 +148,8 @@ function gamePlay(){
 
 function myChallengesToggler() {
 	$('.challenge-list').find('span').click(function() {
-		$(this).parent().parent().find('.challenge').slideToggle('slow', function() { } );
+		$(this).find('i').toggleClass('fa-chevron-down').toggleClass('fa-chevron-up');
+		$(this).parent().parent().find('.challenge').slideToggle('slow', function() {});
 	})
 }
 

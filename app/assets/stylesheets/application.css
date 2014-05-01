@@ -9,6 +9,7 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  *= require_self
+ *= require font-awesome-4.0.3/css/font-awesome.min
  *= require_tree .
  */
 
@@ -30,8 +31,12 @@
 
  body{
  	background: #e6e6e6;
+<<<<<<< HEAD
 
  	font-family: 'Helvetica Neue', serif;
+=======
+  font-family: 'Helvetica Neue', serif;
+>>>>>>> 5a205c4458860f1ffcf9c2234db8d2cbff8eed49
  }
 
 
@@ -126,8 +131,36 @@
   background-color: teal;
   color: whitesmoke;
   padding: 10px;
+  margin-bottom: 0;
  }
 
  .challenge-list * span {
   float: right;
  }
+
+ .challenge-list * span:hover {
+  color: indianred;
+  cursor: pointer;
+  cursor: hand;
+ }
+
+.challenge {
+  border: 3px solid gray;
+  padding: 10px;
+  border-top: 0;
+}
+
+.challenge-list > a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.challenge-list > a:hover {
+  color: indianred;
+}
+
+.profile-pic > img {
+  width: 100px;
+  border-radius: 25%;
+  display: inline-block;
+}

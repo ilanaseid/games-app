@@ -11,7 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 20140501022901) do
+=======
+ActiveRecord::Schema.define(version: 20140501033620) do
+>>>>>>> 5a205c4458860f1ffcf9c2234db8d2cbff8eed49
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -54,6 +58,7 @@ ActiveRecord::Schema.define(version: 20140501022901) do
     t.datetime "updated_at"
     t.boolean  "admin",           default: false
     t.integer  "wins"
+    t.text     "image_url"
   end
 
 end
