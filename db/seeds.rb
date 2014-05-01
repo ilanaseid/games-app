@@ -6,10 +6,14 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
+Challenge.delete_all
+GameType.delete_all
+UserChallenge.delete_all
+User.delete_all
 
+ilana = User.create(username: "ilana", email: "ilana@gmail.com", password: "ilana1", password_confirmation: "ilana1", admin: true, wins: 3, image_url: 'ilana.JPG')
 
-ilana = User.create(username: "ilana", email: "ilana@gmail.com", password: "ilana1", password_confirmation: "ilana1", admin: true, wins: 3)
-igor = User.create(username: "igor", email: "igor@gmail.com", password: "igor1", password_confirmation: "igor1", admin: true, wins: 7)
+igor = User.create(username: "igor", email: "igor@gmail.com", password: "igor1", password_confirmation: "igor1", admin: true, wins: 7, image_url: 'igor.JPG')
 
 stephen = User.create(
   username: "spork",
@@ -17,7 +21,8 @@ stephen = User.create(
   password: "123",
   password_confirmation: "123",
   admin: true,
-  wins: 5
+  wins: 5,
+  image_url: 'stephen.JPG'
   )
 
 dave = User.create(
@@ -26,10 +31,21 @@ dave = User.create(
   password: "pw1",
   password_confirmation: "pw1",
   admin: true,
-  wins: 4
+  wins: 4,
+  image_url: 'dave.JPG'
   )
 
-tic_tac_foot = GameType.create(name: "Tic tac foot", rules: "blah blah blah")
+derek = User.create(
+  username: "derek",
+  email: "derek@derek.com",
+  password: "pw1",
+  password_confirmation: "pw1",
+  admin: true,
+  wins: 4,
+  image_url: 'derek.JPG'
+  )
+
+tic_tac_foot = GameType.create(name: "Tic Tac Foot", rules: "blah blah blah")
 tic_tac_toe = GameType.create(name: "Tic Tac Toe", rules: "yada yada goose!")
 
 blank_state = "U" * 90

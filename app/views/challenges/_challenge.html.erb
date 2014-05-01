@@ -1,16 +1,9 @@
 <%= link_to (challenge) do %>
   <div class="challenge">
-    <div>
-      <strong>Challenge ID:</strong> <%= challenge.id %>
+    <div class="profile-pic">
+      <img src="<%= asset_path challenge.last_player.image_url %>" alt="">
     </div>
-
-    <div>
-      <strong>Game-Type:</strong> <%= challenge.game_type.name %>
-    </div>
-
-    <div>
-      <strong>Created at:</strong> <%= challenge.created_at %>
-    </div>
+    
 
     <div>
       <strong>Last move</strong> by <%= challenge.last_player.username %> at <%= challenge.updated_at %>

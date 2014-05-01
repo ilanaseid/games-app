@@ -1,4 +1,4 @@
-$(document).ready(function(){
+$(document).on("page:change",function(){
 	console.log("Loaded, bro!")
 
 	loadBoard();	
@@ -16,7 +16,6 @@ var bigSquareToCheck;
 var lastMoveBigSquareIndex = undefined;
 var lastMoveBigSquareValue = undefined;
 var gameOutcome = undefined;
-
 
 function loadBoard() {
 	// Add classes to squares based on text inside each div.
@@ -50,6 +49,7 @@ function changePlayer(){
 }
 
 function determineActiveSquare(){
+	// boardId gets set to the last_move_index when the page is reloaded
 	var boardId = $('.big-board').attr('id');
 
 	if (boardId === "") {
@@ -134,6 +134,7 @@ function gamePlay(){
 
 function myChallengesToggler() {
 	$('.challenge-list').find('span').click(function() {
+		$(this).find('i').toggleClass('fa-chevron-down').toggleClass('fa-chevron-up');
 		$(this).parent().parent().find('.challenge').slideToggle('slow', function() {});
 	})
 }

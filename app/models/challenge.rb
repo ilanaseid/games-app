@@ -23,7 +23,7 @@ class Challenge < ActiveRecord::Base
     return character == 'U' ? '' : character
   end
 
-    def getBigSquareValue(index)
+  def getBigSquareValue(index)
     character = self.state_of_play[index]
     return character
   end
