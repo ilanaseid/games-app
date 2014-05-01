@@ -1,6 +1,8 @@
 $(document).ready(function(){
 	console.log("Loaded, bro!")
-	loadBoard();
+
+	loadBoard();	
+	myChallengesToggler();
 });
 
 var activeSquare;
@@ -127,6 +129,12 @@ function gamePlay(){
 			changePlayer();
 		} // END IF STATEMENT
 	});
+}
+
+function myChallengesToggler() {
+	$('.challenge-list').find('span').click(function() {
+		$(this).parent().parent().find('.challenge').slideToggle('slow', function() {});
+	})
 }
 
 function checkWin(bigSquareToCheck) {
