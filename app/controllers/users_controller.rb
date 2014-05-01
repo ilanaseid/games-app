@@ -17,6 +17,8 @@ before_action :require_authentication, only: [:index, :show, :edit, :update, :de
 
   def create
     @user = User.new(user_params)
+    @user.wins = 0
+    @user.admin = false
 
     if @user.save!
       session[:user_id] = @user.id
@@ -67,7 +69,7 @@ before_action :require_authentication, only: [:index, :show, :edit, :update, :de
       if admin?
         params.require(:user).permit(:username, :email, :password, :password_confirmation, :admin)
       else
-        params.require(:user).permit(:username, :email, :password, :password_confirmation)
+        params.require(:user).permit(:username, :email, :password, :password_confirmation, :wins)
       end
     end
 end

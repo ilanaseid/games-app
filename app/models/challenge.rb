@@ -9,4 +9,25 @@ class Challenge < ActiveRecord::Base
   def last_player
     return User.find(self.last_player_id)
   end
+
+  def set_completed(gameOutcome)
+    self.completed = true
+    self.outcome = gameOutcome
+    self.save
+  end
+
+  def set_winner(winner_id)
+    self.user_challenges.where(user_id: winner_id).first.update_win  
+  end
+
+  def getValue(index)
+    character = self.state_of_play[index]
+    return character == 'U' ? '' : character
+  end
+
+  def getBigSquareValue(index)
+    character = self.state_of_play[index]
+    return character
+  end
+
 end

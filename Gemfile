@@ -60,6 +60,8 @@ end
  	gem 'rails_12factor'
  end
 
+ gem 'underscore-rails'
+
 # Use unicorn as the app server
 # gem 'unicorn'
 
