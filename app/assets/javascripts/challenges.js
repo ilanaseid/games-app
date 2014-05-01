@@ -9,11 +9,11 @@ var activeSquareIndices = [];
 var currentPlayerID;
 var turnCount;
 var lastMoveValue;
-var winner;
+var squareWinner;
+var gameWinner = undefined;
 var bigSquareToCheck;
-var lastMoveBigSquareIndex;
-var lastMoveBigSquareValue;
-var gameOutcome;
+var lastMoveBigSquareIndex = undefined;
+var lastMoveBigSquareValue = undefined;
 
 function loadBoard() {
   // Add classes to squares based on text inside each div.
@@ -34,6 +34,17 @@ function loadBoard() {
       $(this).prepend(newDiv);
     }
   });
+
+  if ($('.big-board').hasClass('X')){
+    var newDiv = $('<div>').addClass('big-board-value').addClass('X').text('X');
+    $('.big-board').prepend(newDiv);
+  } else if ($('.big-board').hasClass('O')){
+    var newDiv = $('<div>').addClass('big-board-value').addClass('O').text('O');
+    $('.big-board').prepend(newDiv);
+  } else if ($('.big-board').hasClass('D')){
+    var newDiv = $('<div>').addClass('big-board-value').addClass('D').text('D');
+    $('.big-board').prepend(newDiv);
+  };
 
   gamePlay();
 }
@@ -109,29 +120,26 @@ function gamePlay(){
 
       lastMoveBigSquareIndex = (bigSquareToCheck.attr('id') - 0) + 81;
       
-  		// check for a win and send in the bigSquare that includes the small square that was just clicked.
   		checkWin(bigSquareToCheck);
-  		// checkWin($('.big-board'));
 
   		var indexOfLastClick = $('.small.square').index( $( this ) );
 
   		$.ajax({
-              url: $('.big-board').data("url"),
-              data: {
-                lastMoveIndex: indexOfLastClick,
-                lastMoveValue: lastMoveValue,
-                lastMoveBigSquareValue: winner,
-                lastMoveBigSquareIndex: lastMoveBigSquareIndex,
-                // gameOutcome: gameOutcome
-                // add variable in here that was set in the checkWin function only if a big-square game was decided.
-              },
-              type: 'PUT',
-              dataType: "json"
-            }).done( function( data ) {
-              console.log( data );
-            });
+        url: $('.big-board').data("url"),
+        data: {
+          lastMoveIndex: indexOfLastClick,
+          lastMoveValue: lastMoveValue,
+          lastMoveBigSquareValue: squareWinner,
+          lastMoveBigSquareIndex: lastMoveBigSquareIndex,
+          gameOutcome: gameWinner
+        },
+        type: 'PUT',
+        dataType: "json"
+      }).done( function( data ) {
+        console.log( data );
+      });
 
-  		winner = "";
+  		squareWinner = "";
 
   		// Change class of big-square for opponent's next move from inactive to active.
   		var smallSquareRelativeIndex = $( this ).attr( 'id' ) % 9;
@@ -146,6 +154,7 @@ function gamePlay(){
 
   } // END IF
 	}); // END ON
+
 }
 
 function myChallengesToggler() {
@@ -156,58 +165,111 @@ function myChallengesToggler() {
 }
 
 function checkWin(bigSquareToCheck) {
-  var winningCombos = [[0,1,2], [0,3,6], [0,4,8], [1,4,7], [2,5,8], [2,4,6], [3,4,5], [6,7,8]];
-  var resultsArrayX = [];
-  var resultsArrayO = [];
-  var intersectionArrayX = [];
-  var intersectionArrayO = [];
 
-  bigSquareToCheck.children().each(function(index, element){
-    if ($(this).text().trim() == "X" || $(this).text().trim() == "D") {
-      resultsArrayX.push(index);
-    } else if ($(this).text().trim() == "O" || $(this).text().trim() == "D") {
-      resultsArrayO.push(index);
-    }
-  });
+	var winningCombos = [[0,1,2], [0,3,6], [0,4,8], [1,4,7], [2,5,8], [2,4,6], [3,4,5], [6,7,8]];
+	var resultsArrayX = [];
+	var resultsArrayO = [];
+	var intersectionArrayX = [];
+	var intersectionArrayO = [];
 
-  // console.log(resultsArrayX)
-  // console.log(resultsArrayO)
+	bigSquareToCheck.children().each(function(index, element){
+		if ($(this).text().trim() == "X" || $(this).text().trim() == "D") {
+			resultsArrayX.push(index);
+		} else if ($(this).text().trim() == "O" || $(this).text().trim() == "D") {
+			resultsArrayO.push(index);
+		}
+	});
 
-  for(var i = 0; i < winningCombos.length; i++) {
-    var checkWinX = _.intersection(resultsArrayX, winningCombos[i]);
-    intersectionArrayX.push(checkWinX)
-    var checkWinO = _.intersection(resultsArrayO, winningCombos[i]);
-    intersectionArrayO.push(checkWinO)
-  };
-  
-  // console.log(intersectionArrayX)
-  // console.log(intersectionArrayO)
+	console.log(resultsArrayX)
+	console.log(resultsArrayO)
 
+	for(var i = 0; i < winningCombos.length; i++) {
+		var checkWinX = _.intersection(resultsArrayX, winningCombos[i]);
+		intersectionArrayX.push(checkWinX)
+		var checkWinO = _.intersection(resultsArrayO, winningCombos[i]);
+		intersectionArrayO.push(checkWinO)
+	};
+	
+	console.log(intersectionArrayX)
+	console.log(intersectionArrayO)
 
-  for(var i = 0; i < winningCombos.length; i++) {
-    if(intersectionArrayX[i].length > 2) {
-      winner = "X";
-      var newDiv = $('<div>').addClass('big-square-value').addClass(winner).text(winner);
-      bigSquareToCheck.prepend(newDiv);
-      bigSquareToCheck.removeClass('U');
-      bigSquareToCheck.addClass(winner);
-      console.log("X WINS");
-      break;
-    } else if (intersectionArrayO[i].length > 2) {
-      winner = "O";
-      var newDiv = $('<div>').addClass('big-square-value').addClass(winner).text(winner);
-      bigSquareToCheck.prepend(newDiv);
-      bigSquareToCheck.removeClass('U');
-      bigSquareToCheck.addClass(winner);
-      console.log("O WINS");
-      break;
-    } else if ((resultsArrayX.length + resultsArrayO.length) == 9) {
-      winner = "D";
-      var newDiv = $('<div>').addClass('big-square-value').addClass(winner).text(winner);
-      bigSquareToCheck.prepend(newDiv);
-      bigSquareToCheck.removeClass('U');
-      bigSquareToCheck.addClass(winner);
-      console.log("IT'S A DRAW");
-    }
-  }
+	for(var i = 0; i < winningCombos.length; i++) {
+		if(intersectionArrayX[i].length > 2) {
+			squareWinner = "X";
+			var newDiv = $('<div>').addClass('big-square-value').addClass(squareWinner).text(squareWinner);
+			bigSquareToCheck.prepend(newDiv);
+			bigSquareToCheck.removeClass('U');
+			bigSquareToCheck.addClass(squareWinner);
+			console.log("X WINS");
+			checkBoardWin();
+			break;
+		} else if (intersectionArrayO[i].length > 2) {
+			squareWinner = "O";
+			var newDiv = $('<div>').addClass('big-square-value').addClass(squareWinner).text(squareWinner);
+			bigSquareToCheck.prepend(newDiv);
+			bigSquareToCheck.removeClass('U');
+			bigSquareToCheck.addClass(squareWinner);
+			console.log("O WINS");
+			checkBoardWin();
+			break;
+		} else if ((resultsArrayX.length + resultsArrayO.length) == 9) {
+			squareWinner = "D";
+			var newDiv = $('<div>').addClass('big-square-value').addClass(squareWinner).text(squareWinner);
+			bigSquareToCheck.prepend(newDiv);
+			bigSquareToCheck.removeClass('U');
+			bigSquareToCheck.addClass(squareWinner);
+			console.log("IT'S A DRAW");
+			checkBoardWin();
+		}
+	}
+}
+
+function checkBoardWin() {
+	var winningCombos = [[0,1,2], [0,3,6], [0,4,8], [1,4,7], [2,5,8], [2,4,6], [3,4,5], [6,7,8]];
+	var resultsArrayX = [];
+	var resultsArrayO = [];
+	var intersectionArrayX = [];
+	var intersectionArrayO = [];
+
+	$('.big-board').children().each(function(index, element){
+		if ($(this).hasClass('X') || $(this).hasClass('D')) {
+			resultsArrayX.push(index);
+		} else if ($(this).hasClass('O') || $(this).hasClass('D')) {
+			resultsArrayO.push(index);
+		}
+	});
+
+	console.log(resultsArrayX)
+	console.log(resultsArrayO)
+
+	for(var i = 0; i < winningCombos.length; i++) {
+		var checkWinX = _.intersection(resultsArrayX, winningCombos[i]);
+		intersectionArrayX.push(checkWinX)
+		var checkWinO = _.intersection(resultsArrayO, winningCombos[i]);
+		intersectionArrayO.push(checkWinO)
+	};
+	
+	console.log(intersectionArrayX)
+	console.log(intersectionArrayO)
+
+	for(var i = 0; i < winningCombos.length; i++) {
+		if(intersectionArrayX[i].length > 2) {
+			gameWinner = "X";
+			var newDiv = $('<div>').addClass('big-board-value').addClass(gameWinner).text(gameWinner);
+			$('.big-board').prepend(newDiv);
+			console.log("X WINS");
+			break;
+		} else if (intersectionArrayO[i].length > 2) {
+			gameWinner = "O";
+			var newDiv = $('<div>').addClass('big-board-value').addClass(gameWinner).text(gameWinner);
+			$('.big-board').prepend(newDiv);
+			console.log("O WINS");
+			break;
+		} else if ((resultsArrayX.length + resultsArrayO.length) == 9) {
+			gameWinner = "D";
+			var newDiv = $('<div>').addClass('big-board-value').addClass(gameWinner).text(gameWinner);
+			$('.big-board').prepend(newDiv);
+			console.log("IT'S A DRAW");
+		}
+	}
 }

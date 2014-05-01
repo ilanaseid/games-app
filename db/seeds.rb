@@ -51,18 +51,21 @@ tic_tac_toe = GameType.create(name: "Tic Tac Toe", rules: "yada yada goose!")
 blank_state = "U" * 90
 
 challenge1 = Challenge.create(state_of_play: blank_state, game_type_id: tic_tac_foot.id, last_player_id: ilana.id, completed: false)
-challenge2 = Challenge.create(state_of_play: blank_state, game_type_id: tic_tac_foot.id, last_player_id: igor.id, completed: false)
-challenge3 = Challenge.create(state_of_play: blank_state, game_type_id: tic_tac_foot.id, last_player_id: ilana.id, completed: false)
-challenge4 = Challenge.create(state_of_play: blank_state, game_type_id: tic_tac_foot.id, last_player_id: ilana.id, completed: false)
-challenge5 = Challenge.create(state_of_play: blank_state, game_type_id: tic_tac_foot.id, last_player_id: igor.id, completed: false)
-
 UserChallenge.create!(user_id: ilana.id, challenge_id: challenge1.id, win: false)
 UserChallenge.create!(user_id: igor.id, challenge_id: challenge1.id, win: false)
+
+challenge2 = Challenge.create(state_of_play: blank_state, game_type_id: tic_tac_foot.id, last_player_id: igor.id, completed: false)
 UserChallenge.create!(user_id: ilana.id, challenge_id: challenge2.id, win: false)
 UserChallenge.create!(user_id: igor.id, challenge_id: challenge2.id, win: false)
+
+challenge3 = Challenge.create(state_of_play: blank_state, game_type_id: tic_tac_foot.id, last_player_id: ilana.id, completed: false)
 UserChallenge.create!(user_id: ilana.id, challenge_id: challenge3.id, win: false)
 UserChallenge.create!(user_id: igor.id, challenge_id: challenge3.id, win: false)
+
+challenge4 = Challenge.create(state_of_play: blank_state, game_type_id: tic_tac_foot.id, last_player_id: ilana.id, completed: false)
 UserChallenge.create!(user_id: ilana.id, challenge_id: challenge4.id, win: false)
 UserChallenge.create!(user_id: igor.id, challenge_id: challenge4.id, win: false)
+
+challenge5 = Challenge.create(state_of_play: blank_state, game_type_id: tic_tac_foot.id, last_player_id: igor.id, completed: false)
 UserChallenge.create!(user_id: ilana.id, challenge_id: challenge5.id, win: false)
 UserChallenge.create!(user_id: igor.id, challenge_id: challenge5.id, win: false)

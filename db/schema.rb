@@ -24,6 +24,7 @@ ActiveRecord::Schema.define(version: 20140501033620) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "last_move_index"
+    t.string   "outcome"
   end
 
   add_index "challenges", ["game_type_id"], name: "index_challenges_on_game_type_id", using: :btree
