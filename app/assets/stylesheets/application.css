@@ -30,20 +30,10 @@
 
  body{
  	background: #e6e6e6;
-<<<<<<< HEAD
+
  	font-family: 'Helvetica Neue', serif;
-=======
-  font-family: 'Helvetica Neue', serif;
->>>>>>> db915042c03d4a0c1b3d0a1cc2f259e69d452456
  }
 
- div.big-board{
- 	width: 500px;
- 	height: 500px;
- 	margin-left: auto;
- 	margin-right: auto;
- 	text-align: center;
- }
 
  div.big{
  	width: 150px;
@@ -111,6 +101,25 @@
  	z-index: 2;
  	font-size: 100px;
  	background-color: rgba(245, 245, 245, 0.7);
+ }
+
+ div.big-board-value{
+ 	width: 500px;
+ 	height: 500px;
+ 	line-height: 500px;
+ 	position: absolute;
+ 	z-index: 3;
+ 	font-size: 500px;
+ 	background-color: rgba(245, 245, 245, 0.8);
+ }
+
+ div.big-board{
+ 	width: 500px;
+ 	height: 500px;
+ 	margin-left: auto;
+ 	margin-right: auto;
+ 	text-align: center;
+ 	position: relative;
  }
 
 .challenge-list > h3 {
