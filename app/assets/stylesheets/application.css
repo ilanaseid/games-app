@@ -63,34 +63,38 @@ font-size: 28px;
 }
 
 .active > .small.U:hover {
-background-color: indianred;
--webkit-box-shadow: 4px 3px 6px 6px #CCCCCC;
--moz-box-shadow: 4px 3px 6px 6px #CCCCCC;
-box-shadow: 4px 3px 6px 6px #CCCCCC;
+  background-color: indianred;
+  -webkit-box-shadow: 4px 3px 6px 6px #CCCCCC;
+  -moz-box-shadow: 4px 3px 6px 6px #CCCCCC;
+  box-shadow: 4px 3px 6px 6px #CCCCCC;
 }
 
 div.active.p1-color {
+  /* orange */
   border: 4px solid #FAA937;
 }
 
 div.active.p2-color {
+  /* teal */
   border: 4px solid #2185A1;
 }
 
 div.X {
-color: #FAA937;
+  /* orange */
+  color: #FAA937; 
 }
 
 div.O {
-color: #2185A1;
+  /* teal */ 
+  color: #2185A1;
 }
 
 div.inactive {
 }
 
-div.current-player {
+/*div.current-player {
   padding: 2px;
-}
+}*/
 
 .current-player.p1-color {
   border: 4px solid #FAA937;
@@ -189,4 +193,60 @@ a > div {
 
 .user-details {
   display: inline-block;
+}
+
+.player-1 {
+  /*border: 1px dashed red;*/
+  padding: 30px;
+  margin-left: 50px;
+  margin-top: 50px;
+  float: left;
+}
+
+.player-1 > div {
+  text-align: center;
+}
+
+.player-2 {
+  /*border: 1px dashed red;*/
+  padding: 30px;
+ margin-right: 50px;
+  margin-top: 50px;
+  float: right;
+}
+
+.player-2 > div {
+  text-align: center;
+}
+
+.container {
+  width: 75%;
+  margin: 0 auto;
+  margin-top: 40px;
+}
+
+.challenge-form {
+  /*border: 1px solid red;*/
+  width: 50%;
+  margin: 0 auto;
+}
+
+form > p {
+  font-weight: bold;
+}
+
+p > select {
+  font-size: 18px;
+}
+
+input {
+  font-size: 20px;
+}
+
+.fa-gamepad {
+  font-size: 28px;
+}
+
+.fa-male {
+  font-size: 28px;
 }
