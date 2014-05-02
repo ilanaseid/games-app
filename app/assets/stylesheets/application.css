@@ -145,6 +145,24 @@ position: relative;
   border-top-right-radius: 10px;
 }
 
+.user-list > h3 {
+  background-color: rgb( 0, 128, 128 );
+  color: whitesmoke;
+  padding: 10px;
+  margin-bottom: 0;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.challenge-form > h3 {
+  background-color: rgb( 0, 128, 128 );
+  color: whitesmoke;
+  padding: 10px;
+  margin-bottom: 0;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
 .challenge-list * span {
 float: right;
 }
@@ -156,6 +174,18 @@ cursor: hand;
 }
 
 .challenge {
+  border: 3px solid gray;
+  padding: 10px;
+  border-top: 0;
+}
+
+.user {
+  border: 3px solid gray;
+  padding: 10px;
+  border-top: 0;
+}
+
+.form {
   border: 3px solid gray;
   padding: 10px;
   border-top: 0;
