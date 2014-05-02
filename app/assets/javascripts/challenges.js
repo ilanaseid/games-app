@@ -1,6 +1,4 @@
 $(document).on("page:change",function(){
-     console.log("Loaded, bro!")
-
   loadBoard();
   myChallengesToggler();
 });
@@ -92,7 +90,7 @@ function activateBigSquares(array){
   } else {
     colorClassToAdd = "p1-color";
   }
-
+  console.log(colorClassToAdd);
   for(var i = 0; i < array.length; i++){
     $('.big.square').eq(array[i]).removeClass('inactive').addClass('active').addClass(colorClassToAdd);  
   }
@@ -110,13 +108,26 @@ function getLastMoveValue() {
 }
 
 function gamePlay(){
-     lastMoveValue = getLastMoveValue();
-     var boardId = $('.big-board').attr('id');
+  lastMoveValue = getLastMoveValue();
+  var boardId = $('.big-board').attr('id');
   determineActiveSquares(boardId);
   var colorClassToAdd;
   activateBigSquares(activeSquareIndices);
 
-     $('.small.square').on('click', function() {
+  // This if statement adds the class that will correctly color the border of current player whenever a game is created or is reloaded from the server
+  if ( lastMoveValue === "X" ) {
+    colorClassToAdd = "p2-color";
+  } else {
+    colorClassToAdd = "p1-color";
+  }
+
+  if ( $('.player-1').hasClass('current-player') ) {
+    $( '.player-1' ).addClass(colorClassToAdd);
+  } else {
+    $( '.player-2' ).addClass(colorClassToAdd);
+  }
+
+  $('.small.square').on('click', function() {
 
     // If the bigSquare is active and the smallSquare has class 'U', then remove class 'U', and based on the value of the last move, change the text and add a class of either "X" or "O" (dm)
     if ( $(this).parent().hasClass('active') && $(this).hasClass('U')) {
