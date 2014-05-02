@@ -1,5 +1,5 @@
 $(document).on("page:change",function(){
-	console.log("Loaded, bro!")
+     console.log("Loaded, bro!")
 
   loadBoard();
   myChallengesToggler();
@@ -54,8 +54,14 @@ function loadBoard() {
 // }
 
 function changePlayer(){
-  $('.player-1').toggleClass('current-player');
-  $('.player-2').toggleClass('current-player');
+  $('.player-1').toggleClass('current-player').removeClass('p1-color').removeClass('p2-color');
+  $('.player-2').toggleClass('current-player').removeClass('p1-color').removeClass('p2-color');
+
+  if ( $('.player-1').hasClass('current-player') ) {
+    $( '.player-1' ).addClass(colorClassToAdd);
+  } else {
+    $( '.player-2' ).addClass(colorClassToAdd);
+  }
 }
 
 //on page reload should set 'activeSquareIndices' to an array with the big square indexes of all big squares that should have class .active
@@ -64,7 +70,7 @@ function determineActiveSquares(lastMoveIndex){
   activeSquareIndices = [];
   if (lastMoveIndex === "") {
     activeSquareIndices = [4];
-  } 
+  }
   else {
     if ($('.big.square').eq(lastMoveIndex % 9).hasClass('U')) {
          activeSquareIndices = [(lastMoveIndex % 9)];
@@ -78,10 +84,17 @@ function determineActiveSquares(lastMoveIndex){
 
 function activateBigSquares(array){
   // First, deactivate all big squares
-  $('.big.square').removeClass('active').addClass('inactive');
+  $('.big.square').removeClass('p1-color').removeClass('p2-color').removeClass('active').addClass('inactive');
+
+  
+  if ( lastMoveValue === "X" ) {
+    colorClassToAdd = "p2-color";
+  } else {
+    colorClassToAdd = "p1-color";
+  }
 
   for(var i = 0; i < array.length; i++){
-    $('.big.square').eq(array[i]).removeClass('inactive').addClass('active');  
+    $('.big.square').eq(array[i]).removeClass('inactive').addClass('active').addClass(colorClassToAdd);  
   }
 }
 
@@ -97,12 +110,13 @@ function getLastMoveValue() {
 }
 
 function gamePlay(){
-	lastMoveValue = getLastMoveValue();
-	var boardId = $('.big-board').attr('id');
+     lastMoveValue = getLastMoveValue();
+     var boardId = $('.big-board').attr('id');
   determineActiveSquares(boardId);
+  var colorClassToAdd;
   activateBigSquares(activeSquareIndices);
 
-	$('.small.square').on('click', function() {
+     $('.small.square').on('click', function() {
 
     // If the bigSquare is active and the smallSquare has class 'U', then remove class 'U', and based on the value of the last move, change the text and add a class of either "X" or "O" (dm)
     if ( $(this).parent().hasClass('active') && $(this).hasClass('U')) {
@@ -119,12 +133,12 @@ function gamePlay(){
       bigSquareToCheck = $(this).parent();
 
       lastMoveBigSquareIndex = (bigSquareToCheck.attr('id') - 0) + 81;
-      
-  		checkWin(bigSquareToCheck);
 
-  		var indexOfLastClick = $('.small.square').index( $( this ) );
+            checkWin(bigSquareToCheck);
 
-  		$.ajax({
+            var indexOfLastClick = $('.small.square').index( $( this ) );
+
+            $.ajax({
         url: $('.big-board').data("url"),
         data: {
           lastMoveIndex: indexOfLastClick,
@@ -139,33 +153,32 @@ function gamePlay(){
         console.log( data );
       });
 
-  		squareWinner = "";
+            squareWinner = "";
 
-  		// Change class of big-square for opponent's next move from inactive to active.
-  		var smallSquareRelativeIndex = $( this ).attr( 'id' ) % 9;
-      
+            // Change class of big-square for opponent's next move from inactive to active.
+            var smallSquareRelativeIndex = $( this ).attr( 'id' ) % 9;
+
       console.log( smallSquareRelativeIndex );
       determineActiveSquares( smallSquareRelativeIndex );
 
       console.log( activeSquareIndices );
       activateBigSquares( activeSquareIndices );
-  		  		
-  		changePlayer();
+
+            changePlayer();
 
   } // END IF
-	}); // END ON
+     }); // END ON
 
 }
 
 function myChallengesToggler() {
-	$('.challenge-list').find('span').click(function() {
-		$(this).find('i').toggleClass('fa-chevron-down').toggleClass('fa-chevron-up');
-		$(this).parent().parent().find('.challenge').slideToggle('slow', function() {});
-	})
+     $('.challenge-list').find('span').click(function() {
+          $(this).find('i').toggleClass('fa-chevron-down').toggleClass('fa-chevron-up');
+          $(this).parent().parent().find('.challenge').slideToggle('slow', function() {});
+     })
 }
 
 function checkWin(bigSquareToCheck) {
-
 	var winningCombos = [[0,1,2], [0,3,6], [0,4,8], [1,4,7], [2,5,8], [2,4,6], [3,4,5], [6,7,8]];
 	var resultsArrayX = [];
 	var resultsArrayO = [];
