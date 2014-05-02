@@ -18,6 +18,7 @@ class ChallengesController < ApplicationController
     playersArray = UserChallenge.where(challenge_id: @challenge.id).pluck('user_id')
     if playersArray.include?(current_user.id)
       @current_player_id = playersArray.reject { |user_id| user_id == @challenge.last_player_id }.first
+
       @last_player_id = @challenge.last_player_id
       render 'show'
     else
@@ -33,7 +34,7 @@ class ChallengesController < ApplicationController
   def create
     @challenge = Challenge.new(
       game_type_id: params[:challenge][:game_type_id],
-      last_player_id: current_user.id, 
+      last_player_id: current_user.id,
       completed: false,
       state_of_play: "U" * 90)
 
@@ -56,7 +57,7 @@ class ChallengesController < ApplicationController
 
   def update
     @challenge = Challenge.find(params[:id])
-    
+
     playersArray = UserChallenge.where(challenge_id: @challenge.id).pluck('user_id')
     @current_player_id = playersArray.reject { |user_id| user_id == @challenge.last_player_id }.first
 
@@ -68,7 +69,7 @@ class ChallengesController < ApplicationController
       updated_state = state_array.join
 
       @challenge.update(state_of_play: updated_state, last_move_index: @lastMoveIndex, last_player_id: @current_player_id)
-      
+
       #update a big square
       @lastMoveBigSquareIndex = params[:lastMoveBigSquareIndex].to_i
       @lastMoveBigSquareValue = params[:lastMoveBigSquareValue]
@@ -82,7 +83,7 @@ class ChallengesController < ApplicationController
 
       #update a winner
       @gameOutcome = params[:gameOutcome]
-     
+
       if @gameOutcome == "X"
         @winner_id = playersArray[1]
         User.find(@winner_id).add_win

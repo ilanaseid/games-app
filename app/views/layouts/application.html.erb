@@ -7,32 +7,6 @@
 <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
 
 <%= csrf_meta_tags %>
-<<<<<<< HEAD
-<body>
-
-  <% if !current_user %>
-    <%= link_to  'Login', login_path %>
-  <% else %>
-    Hello, <%= link_to current_user.username, user_path(current_user) %>!  <%= link_to 'Logout', logout_path %>
-  <% end %>
-
-  <h1>Tic Tac Foot</h1>
-
-  <div id="navbar">
-    <ul>
-      <li><%= link_to 'Home', root_path %></li>
-      <li><%= link_to 'All users (admin only)', users_path %></li>
-      <li><%= link_to 'All challenges (admin only)', challenges_path %></li>
-      <li><%= link_to 'My challenges', challenges_index_for_user_path %></li>
-      <li><%= link_to 'New challenge', new_challenge_path %></li>
-      <li><%= link_to 'Leaderboard', leaderboard_path %></li>
-    </ul>
-  </div>
-
-  <hr>
-
-  <% flash.each do |name, msg| %>
-=======
 
   <body>
     <div class="fixed">
@@ -54,6 +28,7 @@
             <% end %>
             <li class="new-challenges"><%= link_to 'New challenge', new_challenge_path %></li>
             <li class="my-challenges"><%= link_to 'My challenges', challenges_index_for_user_path %></li>
+            <li class="leader-board"><%= link_to 'Leaderboard', leaderboard_path %></li>
           </ul>
 
           <!-- Left Nav Section -->
@@ -80,7 +55,6 @@
 
 
     <% flash.each do |name, msg| %>
->>>>>>> work_css
     <%= content_tag :div, msg, class:name %>
     <% end %>
 
