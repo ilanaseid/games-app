@@ -288,3 +288,12 @@ input {
   display: block;
   margin-top: 40px;
 }
+
+.leaderboard {
+  text-align: center;
+}
+
+table {
+  margin-left: auto;
+  margin-right: auto;
+}
