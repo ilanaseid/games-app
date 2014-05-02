@@ -174,10 +174,15 @@ function checkWin(bigSquareToCheck) {
 
 
 	bigSquareToCheck.children().each(function(index, element){
-		if ($(this).text().trim() == "X" || $(this).text().trim() == "D") {
+		if ($(this).text().trim() == "D") {
 			resultsArrayX.push(index);
-		} else if ($(this).text().trim() == "O" || $(this).text().trim() == "D") {
 			resultsArrayO.push(index);
+		}
+
+		if ($(this).text().trim() == "O"){
+			resultsArrayO.push(index);
+		} else if ($(this).text().trim() == "X"){
+			resultsArrayX.push(index);
 		}
 	});
 
@@ -230,13 +235,16 @@ function checkBoardWin() {
 	var winningCombos = [[0,1,2], [0,3,6], [0,4,8], [1,4,7], [2,5,8], [2,4,6], [3,4,5], [6,7,8]];
 	var resultsArrayX = [];
 	var resultsArrayO = [];
+	var resultsArrayD = [];
 	var intersectionArrayX = [];
 	var intersectionArrayO = [];
+	var intersectionArrayD = [];
 
 	$('.big-board').children().each(function(index, element){
 		if ($(this).hasClass('D')) {
 			resultsArrayX.push(index);
 			resultsArrayO.push(index);
+			resultsArrayD.push(index);
 		} 
 
 		if ($(this).hasClass('X')) {
@@ -244,11 +252,20 @@ function checkBoardWin() {
 		} else if ($(this).hasClass('O')){
 			resultsArrayO.push(index);
 		}
-		
 	});
 
-	console.log(resultsArrayX)
-	console.log(resultsArrayO)
+	for(var i = 0; i < winningCombos.length; i++) {
+		var checkWinD = _.intersection(resultsArrayD, winningCombos[i]);
+		intersectionArrayD.push(checkWinD)
+	};
+
+	for(var i = 0; i < intersectionArrayD.length; i++){
+		var holder = intersectionArrayD[i].toString();
+		winningCombos = _.reject(winningCombos, function(arr) {
+			return arr.toString() == holder
+		})
+	}
+	console.log(winningCombos)
 
 	for(var i = 0; i < winningCombos.length; i++) {
 		var checkWinX = _.intersection(resultsArrayX, winningCombos[i]);
@@ -261,7 +278,7 @@ function checkBoardWin() {
 	console.log(intersectionArrayO)
 
 	for(var i = 0; i < winningCombos.length; i++) {
-		if(intersectionArrayX[i].length > 2) {
+		 if(intersectionArrayX[i].length > 2) {
 			gameWinner = "X";
 			var newDiv = $('<div>').addClass('big-board-value').addClass(gameWinner).text(gameWinner);
 			$('.big-board').prepend(newDiv);
