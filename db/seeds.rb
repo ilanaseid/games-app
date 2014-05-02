@@ -80,6 +80,14 @@ tic_tac_toe = GameType.create(name: "Tic Tac Toe", rules: "yada yada goose!")
 
 blank_state = "U" * 90
 
+# UserChallenge.create!(user_id: ilana.id, challenge_id: 1, win: true)
+# UserChallenge.create!(user_id: igor.id, challenge_id: 1, win: false)
+# UserChallenge.create!(user_id: ilana.id, challenge_id: 2, win: true)
+# UserChallenge.create!(user_id: igor.id, challenge_id: 2, win: false)
+# UserChallenge.create!(user_id: ilana.id, challenge_id: 3, win: false)
+# UserChallenge.create!(user_id: igor.id, challenge_id: 3, win: true)
+
+
 challenge1 = Challenge.create(state_of_play: blank_state, game_type_id: tic_tac_foot.id, last_player_id: ilana.id, completed: false)
 UserChallenge.create!(user_id: ilana.id, challenge_id: challenge1.id, win: false)
 UserChallenge.create!(user_id: igor.id, challenge_id: challenge1.id, win: false)

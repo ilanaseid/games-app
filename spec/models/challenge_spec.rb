@@ -8,7 +8,7 @@ describe Challenge do
     password: 'test',
     password_confirmation: 'test',
     admin: false
-  })}
+    })}
 
   subject(:challenge) {Challenge.create({
     state_of_play: "X" * 90,
@@ -28,7 +28,6 @@ describe Challenge do
     end
   end
 
-
   describe('#set_completed') do
     it('should set the challenge to completed') do
       ilana = User.create(username: "ilana", email: "ilana@gmail.com", password: "ilana1", password_confirmation: "ilana1", admin: true, wins: 0)
@@ -43,7 +42,6 @@ describe Challenge do
       expect(challenge.completed).to equal(true)
 
     end
-
 
     it("should set win for the correct user_challenge") do
       ilana = User.create(username: "ilana", email: "ilana@gmail.com", password: "ilana1", password_confirmation: "ilana1", admin: true, wins: 0)
@@ -99,13 +97,10 @@ describe Challenge do
     end
   end
 
-
   describe '#getValue' do 
     it "should return the relevant character of the state_of_play string depending on index number in div" do
       expect(subject.getValue(0)).to eq("X")
     end
   end
 end
-
-
 

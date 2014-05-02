@@ -5,33 +5,63 @@
 <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
 <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
 <%= csrf_meta_tags %>
-<body>
 
-  <% if !current_user %>
-    <%= link_to  'Login', login_path %>
-  <% else %>
-    Hello, <%= link_to current_user.username, user_path(current_user) %>!  <%= link_to 'Logout', logout_path %>
-  <% end %>
+  <body>
+    <div class="fixed">
+      <nav class="top-bar" data-topbar>
+        <ul class="title-area">
+          <li class="name">
+            <h1><%= link_to 'Home', root_path %></h1>
+          </li>
+          <!-- Remove the class "menu-icon" to get rid of menu icon. Take out "Menu" to just have icon alone -->
+          <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
+        </ul>
 
-  <h1>Tic Tac Foot</h1>
-  
-  <div id="navbar">
-    <ul>
-      <li><%= link_to 'Home', root_path %></li>
-      <li><%= link_to 'All users (admin only)', users_path %></li>
-      <li><%= link_to 'All challenges (admin only)', challenges_path %></li>
-      <li><%= link_to 'My challenges', challenges_index_for_user_path %></li>
-      <li><%= link_to 'New challenge', new_challenge_path %></li>
-    </ul>
-  </div>
-  
-  <hr>
+        <section class="top-bar-section">
+          <!-- Right Nav Section -->
+          <ul class="right">
+            <% if admin? %>
+            <li class="admin"><%= link_to 'All users (admin only)', users_path %></li>
+            <li class="admin"><%= link_to 'All challenges (admin only)', challenges_path %></li>
+            <% end %>
+            <li class="new-challenges"><%= link_to 'New challenge', new_challenge_path %></li>
+            <li class="my-challenges"><%= link_to 'My challenges', challenges_index_for_user_path %></li>
+            <li class="leader-board"><%= link_to 'Leaderboard', leaderboard_path %></li>
+          </ul>
 
-  <% flash.each do |name, msg| %>
+          <!-- Left Nav Section -->
+          <ul class="left">
+            <li>
+              <% if !current_user %>
+              <%= link_to 'Login', login_path %>
+              <% else %>
+              <%= link_to current_user.username, user_path(current_user) %>
+              <% end %>
+            </li>
+          </ul>
+          <ul class="left">
+            <li>
+              <% if current_user %>
+              <%= link_to 'Logout', logout_path %>
+              <% end %>
+            </li>
+          </ul>
+        </section>
+      </nav>
+    </div>
+
+
+
+    <% flash.each do |name, msg| %>
     <%= content_tag :div, msg, class:name %>
-  <% end %>
+    <% end %>
+  <div class="logo">
+    <img src="<%= asset_path 'tic_tac_foot_logo.GIF' %>" alt="">
+  </div>
 
-<%= yield %>
+  <div class="container">
+    <%= yield %>
+  </div>
 
-</body>
-</html>
+  </body>
+  </html>

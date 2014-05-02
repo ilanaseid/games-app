@@ -1,1 +1,3 @@
-ERD: http://i.imgur.com/7gI9F8S.gif
+ERD: http://i.imgur.com/oxLE0sJ.gif
+
+Pivitol Tracker: https://www.pivotaltracker.com/s/projects/1067698

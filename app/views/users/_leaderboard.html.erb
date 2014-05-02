@@ -1,0 +1,23 @@
+<h1>Leaderboard</h1>
+
+<% i = 0 %>
+
+<table width="200" cellpadding="5" cellspacing="2">
+  <tr>
+    <th>Place</th>
+    <th>Player Name</th>
+    <th>Score</th>
+  </tr>
+  <% User.top_(10).each do |user| %>
+  <% i = i + 1 %>
+  <tr>
+  <td>
+    <%= i %>
+  </td>
+   <td><%= user.username %></td>
+   <td><%= user.wins %></td>
+  </tr>
+  <% end  %>
+</table>
+
+
