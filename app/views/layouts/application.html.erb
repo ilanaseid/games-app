@@ -57,7 +57,9 @@
     <% flash.each do |name, msg| %>
     <%= content_tag :div, msg, class:name %>
     <% end %>
-
+  <div class="logo">
+    <img src="<%= asset_path 'tic_tac_foot_logo.GIF' %>" alt="">
+  </div>
 
   <div class="container">
     <%= yield %>

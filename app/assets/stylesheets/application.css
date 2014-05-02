@@ -240,7 +240,7 @@ a > div {
 .player-2 {
   /*border: 1px dashed red;*/
   padding: 30px;
- margin-right: 50px;
+  margin-right: 50px;
   margin-top: 50px;
   float: right;
 }
@@ -279,4 +279,10 @@ input {
 
 .fa-male {
   font-size: 28px;
+}
+
+.logo > img {
+  margin: 0 auto;
+  display: block;
+  margin-top: 40px;
 }
