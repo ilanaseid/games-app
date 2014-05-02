@@ -9,9 +9,11 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  *= require_self
+
  *= require foundation_and_overrides
 
  *= require font-awesome-4.0.3/css/font-awesome.min
+
  *= require_tree .
  */
 
@@ -93,7 +95,6 @@ div.O {
 
 div.inactive {
 }
-
 /*div.current-player {
   padding: 2px;
 }*/
@@ -104,21 +105,22 @@ div.inactive {
 
 .current-player.p2-color {
   border: 4px solid #2185A1;
+
 }
 
 div.players {
-text-align: left;
-padding: 2px;
+  text-align: left;
+  padding: 2px;
 }
 
 div.big-square-value{
-width: 150px;
-height: 150px;
-line-height: 150px;
-position: absolute;
-z-index: 2;
-font-size: 100px;
-background-color: rgba(245, 245, 245, 0.7);
+  width: 150px;
+  height: 150px;
+  line-height: 150px;
+  position: absolute;
+  z-index: 2;
+  font-size: 100px;
+  background-color: rgba(245, 245, 245, 0.7);
 }
 
 div.big-board-value{
@@ -170,6 +172,24 @@ padding: 15px;
   border-top-right-radius: 10px;
 }
 
+.profile-page > h3 {
+  background-color: rgb( 0, 128, 128 );
+  color: whitesmoke;
+  padding: 10px;
+  margin-bottom: 0;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.leaderboard > h3 {
+  background-color: rgb( 0, 128, 128 );
+  color: whitesmoke;
+  padding: 10px;
+  margin-bottom: 0;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
 .challenge-list * span {
 float: right;
 }
@@ -187,6 +207,12 @@ cursor: hand;
 }
 
 .user {
+  border: 3px solid gray;
+  padding: 10px;
+  border-top: 0;
+}
+
+.score-table {
   border: 3px solid gray;
   padding: 10px;
   border-top: 0;
@@ -258,10 +284,16 @@ a > div {
   width: 75%;
   margin: 0 auto;
   margin-top: 40px;
+  margin-bottom: 100px;
 }
 
 .challenge-form {
   /*border: 1px solid red;*/
+  width: 50%;
+  margin: 0 auto;
+}
+
+.profile-page {
   width: 50%;
   margin: 0 auto;
 }
@@ -290,4 +322,15 @@ input {
   margin: 0 auto;
   display: block;
   margin-top: 40px;
+}
+
+.leaderboard {
+  text-align: center;
+  width: 50%;
+  margin: 0 auto;
+}
+
+table {
+  margin-left: auto;
+  margin-right: auto;
 }

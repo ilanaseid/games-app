@@ -52,7 +52,7 @@ mckenneth = User.create(
   password_confirmation: "pw1",
   admin: true,
   wins: 4,
-  image_url: 'mckenneth.jpg'
+  image_url: 'mckenneth.JPG'
   )
 
 adam = User.create(
@@ -62,7 +62,7 @@ adam = User.create(
   password_confirmation: "pw1",
   admin: true,
   wins: 4,
-  image_url: 'adam.jpg'
+  image_url: 'adam.JPG'
   )
 
 hari = User.create(
@@ -72,7 +72,7 @@ hari = User.create(
   password_confirmation: "pw1",
   admin: true,
   wins: 4,
-  image_url: 'hari.jpg'
+  image_url: 'hari.JPG'
   )
 
 tic_tac_foot = GameType.create(name: "Tic Tac Foot", rules: "blah blah blah")
