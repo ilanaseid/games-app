@@ -10,6 +10,10 @@ class Challenge < ActiveRecord::Base
     return User.find(self.last_player_id)
   end
 
+  def current_player
+    return self.users.reject{ |user| user == self.last_player }.first
+  end
+
   def set_completed(gameOutcome)
     self.completed = true
     self.outcome = gameOutcome

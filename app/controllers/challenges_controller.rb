@@ -14,11 +14,9 @@ class ChallengesController < ApplicationController
   end
 
   def show
-    @challenge = Challenge.find(params[:id])
-    playersArray = UserChallenge.where(challenge_id: @challenge.id).pluck('user_id')
-    if playersArray.include?(current_user.id)
-      @current_player_id = playersArray.reject { |user_id| user_id == @challenge.last_player_id }.first
-
+    @challenge = Challenge.find( params[ :id ] )
+    if @challenge.users.include?(current_user)
+      @current_player_id = @challenge.current_player.id
       @last_player_id = @challenge.last_player_id
       render 'show'
     else
@@ -33,14 +31,14 @@ class ChallengesController < ApplicationController
 
   def create
     @challenge = Challenge.new(
-      game_type_id: params[:challenge][:game_type_id],
+      game_type_id: GameType.find_by(name: "Tic Tac Foot").id,
       last_player_id: current_user.id,
       completed: false,
       state_of_play: "U" * 90)
 
     if @challenge.save
-      UserChallenge.create(user_id: current_user.id, challenge_id: @challenge.id, win: false)
-      UserChallenge.create(user_id: params[:opponent_id], challenge_id: @challenge.id, win: false)
+      @challenge.user_challenges.create(user_id: current_user.id, win: false)
+      @challenge.user_challenges.create(user_id: params[:opponent_id], win: false)
       redirect_to @challenge
     else
       redirect_to new_challenge_path

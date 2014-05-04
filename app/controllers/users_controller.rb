@@ -74,7 +74,7 @@ before_action :require_authentication, only: [:index, :show, :edit, :update, :de
       if admin?
         params.require(:user).permit(:username, :email, :password, :password_confirmation, :admin)
       else
-        params.require(:user).permit(:username, :email, :password, :password_confirmation, :wins)
+        params.require(:user).permit(:username, :email, :password, :password_confirmation)
       end
     end
 end

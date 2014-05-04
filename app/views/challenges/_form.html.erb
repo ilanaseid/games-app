@@ -1,11 +1,6 @@
 <div class="form">
 
 <%= form_for @challenge do |f| %>
-	<p>
-		<%= f.label :game_type %><br />
-		<i class="fa fa-gamepad"></i>
-    <%= collection_select(:challenge, :game_type_id, GameType.all, :id, :name) %><br />
-  </p>
   <p>
     User to challenge:<br />
     <i class="fa fa-male"></i>
