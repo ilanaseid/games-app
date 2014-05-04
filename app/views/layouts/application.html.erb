@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html>
-<title>Tic Tac Foot</title>
-<%= favicon_link_tag 'favicon.ico' %>
-<%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
-<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
-<%= javascript_include_tag "application", "data-turbolinks-track" => true %>
-<%= csrf_meta_tags %>
-
+  <head>
+    <title>Tic Tac Foot</title>
+    <%= favicon_link_tag 'favicon.ico' %>
+    <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+    <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+    <%= csrf_meta_tags %>
+  </head>
+  
   <body>
     <div class="fixed">
       <nav class="top-bar" data-topbar>
@@ -28,7 +30,7 @@
             <li class="new-challenges"><%= link_to 'New challenge', new_challenge_path %></li>
             <li class="my-challenges"><%= link_to 'My challenges', challenges_index_for_user_path %></li>
             <li class="leader-board"><%= link_to 'Leaderboard', leaderboard_path %></li>
-          </ul>
+          </ul> <!-- END RIGHT -->
 
           <!-- Left Nav Section -->
           <ul class="left">
@@ -46,8 +48,8 @@
               <%= link_to 'Logout', logout_path %>
               <% end %>
             </li>
-          </ul>
-        </section>
+          </ul> <!-- END LEFT -->
+        </section> <!-- END TOP-BAR-SECTION -->
       </nav>
     </div>
 
@@ -65,4 +67,4 @@
   </div>
 
   </body>
-  </html>
+</html>
