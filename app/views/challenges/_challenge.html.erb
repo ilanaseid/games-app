@@ -2,11 +2,16 @@
   <%= link_to (challenge) do %>
   
     <div class="profile-pic">
-      <img src="<%= asset_path challenge.last_player.image_url %>" alt="">
+      <img src="<%= asset_path challenge.users.reject { |user| user == current_user }.first.image_url %>" alt="">
+    </div>
+
+    <div class="time-elapsed">
+      Last move <%= challenge.getTimeSinceLastMove %>
     </div>
     
-    <div>
-      <strong>Last move</strong> by <%= challenge.last_player.username %> at <%= challenge.updated_at %>
+    <div class="username">
+      <%= challenge.users.reject { |user| user == current_user }.first.username %>
     </div>
+
   <% end %>
 </div>

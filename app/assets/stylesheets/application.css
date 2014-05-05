@@ -334,3 +334,17 @@ table {
   margin-left: auto;
   margin-right: auto;
 }
+
+.time-elapsed {
+  display: inline-block;
+  font-size: 1.2em;
+}
+
+.username {
+  width: 100px;
+  text-align: center;
+}
+
+.challenge-list {
+  margin-bottom: 40px;
+}
