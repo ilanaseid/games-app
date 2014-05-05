@@ -1,8 +1,15 @@
+
+
 <div class="challenge">
   <%= link_to (challenge) do %>
   
     <div class="profile-pic">
-      <img src="<%= asset_path challenge.users.reject { |user| user == current_user }.first.image_url %>" alt="">
+    <% opponent = challenge.users.reject { |user| user == current_user }.first %>
+      <% if !opponent.image_url.nil? %>
+        <img src="<%= asset_path opponent.image_url %>" alt="">
+      <% else %>
+        <i class="fa fa-user"></i>
+      <% end %>
     </div>
 
     <div class="time-elapsed">
@@ -10,7 +17,7 @@
     </div>
     
     <div class="username">
-      <%= challenge.users.reject { |user| user == current_user }.first.username %>
+      <%= opponent.username %>
     </div>
 
   <% end %>

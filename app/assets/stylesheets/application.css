@@ -240,12 +240,24 @@ cursor: hand;
   border: 5px solid whitesmoke;
 }
 
+.profile-pic > i {
+  width: 100px;
+  border-radius: 25%;
+  display: inline-block;
+  border: 5px solid whitesmoke;
+}
+
 .profile-pic > img:hover {
+  border-color: indianred;
+}
+
+.profile-pic > i:hover {
   border-color: indianred;
 }
 
 .profile-pic {
   display: inline-block;
+  text-align: center;
 }
 
 a > div {
@@ -316,6 +328,10 @@ input {
 
 .fa-male {
   font-size: 28px;
+}
+
+.fa-user {
+  font-size: 100px;
 }
 
 .logo > img {
