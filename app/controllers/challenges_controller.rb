@@ -4,7 +4,7 @@ class ChallengesController < ApplicationController
   before_action :require_authentication
 
   def index
-    @challenges = Challenge.all
+    @challenges = Challenge.order( updated_at: :desc )
   end
 
   def index_for_user
