@@ -26,7 +26,25 @@ class ChallengesController < ApplicationController
   end
 
   def new
-    @challenge = Challenge.new()
+    if current_user != User.find_by(email: 'guest1@guest.com')
+      @challenge = Challenge.new()
+      render 'new.html.erb'
+    # Added to auto-create new challenge for guest-users when Play Now button is clicked on welcome#index page.
+    else
+      @challenge = Challenge.new(
+        game_type_id: GameType.find_by(name: "Tic Tac Foot").id,
+        last_player_id: current_user.id,
+        completed: false,
+        state_of_play: "U" * 90)
+
+      if @challenge.save
+        @challenge.user_challenges.create(user_id: current_user.id, win: false)
+        @challenge.user_challenges.create(user_id: User.find_by(email: 'guest2@guest.com').id, win: false)
+        redirect_to @challenge
+      else
+        redirect_to new_challenge_path
+      end
+    end
   end
 
   def create

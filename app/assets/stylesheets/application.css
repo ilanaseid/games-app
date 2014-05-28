@@ -364,3 +364,17 @@ table {
 .challenge-list {
   margin-bottom: 40px;
 }
+
+.fa-user {
+  color: gray;
+}
+
+#title, #subtitle {
+  text-align: center;
+}
+
+div#button-holder {
+  text-align: center;
+  margin-top: 50px;
+}
+
