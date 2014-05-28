@@ -1,12 +1,24 @@
 
 <div class="players" data-current-player="<%= @current_player_id %>">
   <div class="player-1 current-player">
-    <div class="profile-pic"><img src="<%= asset_path User.find(@current_player_id).image_url %>" alt=""></div>
+    <div class="profile-pic">
+      <% if !User.find(@current_player_id).image_url.nil? %>
+        <img src="<%= asset_path User.find(@current_player_id).image_url %>" alt="">
+      <% else %>
+        <i class="fa fa-user"></i>
+      <% end %>
+    </div>
     <div><%= User.find(@current_player_id).username %></div>
   </div>
 
 	<div class="player-2">
-    <div class="profile-pic"><img src="<%= asset_path User.find(@last_player_id).image_url %>" alt=""></div>
+    <div class="profile-pic">
+      <% if !User.find(@current_player_id).image_url.nil? %>
+        <img src="<%= asset_path User.find(@last_player_id).image_url %>" alt="">
+      <% else %>
+        <i class="fa fa-user"></i>
+      <% end %>
+    </div>
     <div><%= User.find(@last_player_id).username %></div>
   </div>
 </div>

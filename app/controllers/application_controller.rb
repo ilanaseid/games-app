@@ -9,6 +9,9 @@ class ApplicationController < ActionController::Base
   def current_user
     if session[:user_id]
       return User.find(session[:user_id])
+    # Added else here so that user is automatically logged into Guest for guest_play
+    else
+      return User.find_by(email: 'guest1@guest.com')
     end
   end
 
