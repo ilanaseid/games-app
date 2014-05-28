@@ -79,18 +79,14 @@ guest1 = User.create(
   username: 'guest1',
   email: 'guest1@guest.com',
   password: 'pw1',
-  password: 'pw1',
-  admin: false,
-  wins: 0
+  password_confirmation: 'pw1'
 )
 
 guest2 = User.create(
   username: 'guest2',
   email: 'guest2@guest.com',
   password: 'pw1',
-  password: 'pw1',
-  admin: false,
-  wins: 0
+  password_confirmation: 'pw1'
 )
 
 tic_tac_foot = GameType.create(name: "Tic Tac Foot", rules: "blah blah blah")
