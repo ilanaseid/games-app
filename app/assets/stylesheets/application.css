@@ -378,3 +378,24 @@ div#button-holder {
   margin-top: 50px;
 }
 
+#footer {
+  text-align: center;
+  /*font-weight: bold;*/
+  border-top: 2px solid gray;
+  padding-bottom: 30px;
+  color: gray;
+}
+
+#footer > .row {
+  padding-top: 30px;
+}
+
+#footer a {
+  color: gray;
+  line-height: 1px;
+}
+
+#footer a:hover {
+  color: orange;
+  font-weight: bold;
+}
